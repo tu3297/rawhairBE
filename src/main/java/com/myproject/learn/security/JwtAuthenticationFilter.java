@@ -27,23 +27,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        try {
-            String jwt = getJwtFromRequest(request);
-            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                Long userId = tokenProvider.getUserIdFromJWT(jwt);
-                UserDetails userDetails = customUserDetailsService.loadUserById(userId);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-            else {
-            	response.getWriter().write("LỖI");
-            	//response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
-            	return;
-            }
-        } catch (Exception ex) {
-            logger.error("Could not set user authentication in security context", ex);
-        }
+//        try {
+//            String jwt = getJwtFromRequest(request);
+//            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+//                Long userId = tokenProvider.getUserIdFromJWT(jwt);
+//                UserDetails userDetails = customUserDetailsService.loadUserById(userId);
+//                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
+//            }
+//        } catch (Exception ex) {
+//            logger.error("Could not set user authentication in security context", ex);
+//        }
         filterChain.doFilter(request, response);
     }
 
