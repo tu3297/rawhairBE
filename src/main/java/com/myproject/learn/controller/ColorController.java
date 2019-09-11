@@ -27,6 +27,7 @@ public class ColorController {
     }
 	@PostMapping(value ="/addColor")
 	public ResponseEntity<ColorDTO> addColor(@RequestBody ColorDTO color) {
-		return new ResponseEntity<>(color,HttpStatus.OK); 
+		ColorDTO data = colorService.addColor(color);
+		return new ResponseEntity<>(data,HttpStatus.OK); 
 	}
 }

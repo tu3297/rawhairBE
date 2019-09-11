@@ -20,5 +20,11 @@ public class ColorServiceImpl implements ColorService {
 		List<Object> colorOb = colorRepo.getAllColors();
 		return listColors;
 	}
+	@Override
+	public ColorDTO addColor(ColorDTO color) {
+		// TODO Auto-generated method stub
+		Object data = colorRepo.addColor(color.getColorId(), color.getColorName(), color.getColorCode());
+		return new ColorDTO();
+	}
 
 }
