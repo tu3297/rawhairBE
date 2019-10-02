@@ -1,5 +1,6 @@
 package com.myproject.learn.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ColorDTO;
 import com.myproject.learn.service.ColorService;
 @RestController
@@ -26,8 +30,11 @@ public class ColorController {
 		   return new ResponseEntity<>(listColors,HttpStatus.OK);
     }
 	@PostMapping(value ="/addColor")
-	public ResponseEntity<ColorDTO> addColor(@RequestBody ColorDTO color) {
-		ColorDTO data = colorService.addColor(color);
-		return new ResponseEntity<>(data,HttpStatus.OK); 
+	public ResponseEntity<ColorDTO> addColor(@RequestBody(required =false) String color) throws JsonParseException, JsonMappingException, IOException {
+		//ColorDTO data = colorService.addColor(color);
+		ObjectMapper mapper = new ObjectMapper();
+		ColorDTO colorData = mapper.readValue(color, ColorDTO.class);
+		ColorDTO colorResponse = colorService.addColor(colorData);
+		return new ResponseEntity<>(colorResponse,HttpStatus.OK); 
 	}
 }

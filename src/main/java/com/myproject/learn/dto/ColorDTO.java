@@ -1,8 +1,14 @@
 package com.myproject.learn.dto;
 
+
+import java.util.Arrays;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ColorDTO {
-    private int colorId;
+	@JsonProperty("colorName")
     private String colorName;
+	@JsonProperty("colorCode")
     private String colorCode;
 	public String getColorCode() {
 		return colorCode;
@@ -14,11 +20,16 @@ public class ColorDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int getColorId() {
-		return colorId;
+	public ColorDTO(String colorName, String colorCode) {
+		super();
+		this.colorName = colorName;
+		this.colorCode = colorCode;
 	}
-	public void setColorId(int colorId) {
-		this.colorId = colorId;
+	public ColorDTO(Object[] color) {
+		super();
+		String[] colorValues =  Arrays.asList(color).toArray(new String[color.length]);
+	    this.colorName = colorValues[0].toString();
+	    this.colorCode = colorValues[1].toString();
 	}
 	public String getColorName() {
 		return colorName;
