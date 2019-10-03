@@ -10,6 +10,14 @@ public class ColorDTO {
     private String colorName;
 	@JsonProperty("colorCode")
     private String colorCode;
+	@JsonProperty("colorId")
+	private String colorId;
+	public String getColorId() {
+		return colorId;
+	}
+	public void setColorId(String colorId) {
+		this.colorId = colorId;
+	}
 	public String getColorCode() {
 		return colorCode;
 	}
@@ -28,8 +36,10 @@ public class ColorDTO {
 	public ColorDTO(Object[] color) {
 		super();
 		String[] colorValues =  Arrays.asList(color).toArray(new String[color.length]);
-	    this.colorName = colorValues[0].toString();
-	    this.colorCode = colorValues[1].toString();
+	    this.colorName = colorValues[1].toString();
+	    this.colorCode = colorValues[2].toString();
+	    this.colorId = colorValues[0].toString();
+	    
 	}
 	public String getColorName() {
 		return colorName;

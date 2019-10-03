@@ -16,8 +16,9 @@ import com.myproject.learn.model.Color;
 @Repository
 public interface ColorRepository extends JpaRepository<Color, Long> {
 	@Query(value="SELECT \n"
-			+ " name AS COLOR_NAME \n"
-			+ ",code AS COLOR_CODE \n"
+			+ " CONVERT(id,char) AS COLOR_ID \n"
+			+ " ,name AS COLOR_NAME \n"
+			+ " ,code AS COLOR_CODE \n"
 			+ " FROM color",nativeQuery = true)
 	List<Object[]> getAllColors();
 	@Modifying
@@ -26,4 +27,14 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
 			+ " ,code) \n"
 			+ " VALUES (:name,:code) \n",nativeQuery=true)
 	void addColor(@Param("name") String name,@Param("code") String code);
+
+	@Query(value = "SELECT COUNT(*) \n"
+			+ " FROM color \n"
+			+ " WHERE id =:id",nativeQuery = true)
+	int checkExistColor(@Param("id") int idColor);
+	@Modifying
+	@Query(value = "UPDATE color \n"
+			+ " SET code =:code , name =:name \n"
+			+ " WHERE id =:id",nativeQuery = true)
+	void updateColor(@Param("code") String code,@Param("name") String name ,@Param("id") int id);
 }

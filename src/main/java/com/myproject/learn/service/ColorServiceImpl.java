@@ -32,5 +32,22 @@ public class ColorServiceImpl implements ColorService {
 		colorRepo.addColor(color.getColorName(), color.getColorCode());
 		return color;
 	}
+	@Override
+	public boolean checkExistColor(ColorDTO color) {
+		// TODO Auto-generated method stub
+		int colorId;
+		if(color.getColorId().equalsIgnoreCase("")) colorId = -1;
+		else colorId = Integer.parseInt(color.getColorId());
+		int exist = colorRepo.checkExistColor(colorId);
+		if(exist != 0) return true;
+		else return false;
+	}
+	@Override
+	@Transactional
+	public ColorDTO updateColor(ColorDTO color) {
+		// TODO Auto-generated method stub
+		colorRepo.updateColor(color.getColorCode(),color.getColorName(),Integer.parseInt(color.getColorId()));
+		return color;
+	}
 
 }

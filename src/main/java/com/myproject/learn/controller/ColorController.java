@@ -31,10 +31,12 @@ public class ColorController {
     }
 	@PostMapping(value ="/addColor")
 	public ResponseEntity<ColorDTO> addColor(@RequestBody(required =false) String color) throws JsonParseException, JsonMappingException, IOException {
-		//ColorDTO data = colorService.addColor(color);
 		ObjectMapper mapper = new ObjectMapper();
 		ColorDTO colorData = mapper.readValue(color, ColorDTO.class);
-		ColorDTO colorResponse = colorService.addColor(colorData);
+		boolean exist = colorService.checkExistColor(colorData);
+		ColorDTO colorResponse = new ColorDTO();
+		if(!exist) colorResponse = colorService.addColor(colorData);
+		else colorResponse = colorService.updateColor(colorData);
 		return new ResponseEntity<>(colorResponse,HttpStatus.OK); 
 	}
 }

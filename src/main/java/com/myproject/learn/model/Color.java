@@ -21,6 +21,15 @@ public class Color {
 	    private Long id;
 	    @Column
 	    private String name;
+	    @Column
+	    private String code;
+	    
+		public String getColorCode() {
+			return code;
+		}
+		public void setColorCode(String colorCode) {
+			this.code = colorCode;
+		}
 		public Long getId() {
 			return id;
 		}

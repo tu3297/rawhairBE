@@ -7,4 +7,6 @@ import com.myproject.learn.dto.ColorDTO;
 public interface ColorService {
     List<ColorDTO> getAllColors();
     ColorDTO addColor(ColorDTO color);
+    ColorDTO updateColor(ColorDTO color);
+    boolean checkExistColor(ColorDTO color);
 }
