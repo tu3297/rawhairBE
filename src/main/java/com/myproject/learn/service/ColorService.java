@@ -8,5 +8,6 @@ public interface ColorService {
     List<ColorDTO> getAllColors();
     ColorDTO addColor(ColorDTO color);
     ColorDTO updateColor(ColorDTO color);
+    String deleteColor(int colorId);
     boolean checkExistColor(ColorDTO color);
 }

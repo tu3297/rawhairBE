@@ -37,4 +37,10 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
 			+ " SET code =:code , name =:name \n"
 			+ " WHERE id =:id",nativeQuery = true)
 	void updateColor(@Param("code") String code,@Param("name") String name ,@Param("id") int id);
+	
+	@Modifying
+	@Query(value = "DELETE \n"
+			+ " FROM color \n"
+			+ " WHERE id =:colorId",nativeQuery = true)
+	void deleteColor(@Param("colorId") int colorId);
 }

@@ -49,5 +49,18 @@ public class ColorServiceImpl implements ColorService {
 		colorRepo.updateColor(color.getColorCode(),color.getColorName(),Integer.parseInt(color.getColorId()));
 		return color;
 	}
+	@Override
+	@Transactional
+	public String deleteColor(int colorId) {
+		// TODO Auto-generated method stub
+		try {
+			colorRepo.deleteColor(colorId);
+			return "Success";
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "Fail";
+		}
+	}
 
 }

@@ -1,16 +1,20 @@
 package com.myproject.learn.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -30,7 +34,7 @@ public class ColorController {
 		   return new ResponseEntity<>(listColors,HttpStatus.OK);
     }
 	@PostMapping(value ="/addColor")
-	public ResponseEntity<ColorDTO> addColor(@RequestBody(required =false) String color) throws JsonParseException, JsonMappingException, IOException {
+	public ResponseEntity<ColorDTO> addColor(@RequestBody(required = false) String color) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		ColorDTO colorData = mapper.readValue(color, ColorDTO.class);
 		boolean exist = colorService.checkExistColor(colorData);
@@ -38,5 +42,12 @@ public class ColorController {
 		if(!exist) colorResponse = colorService.addColor(colorData);
 		else colorResponse = colorService.updateColor(colorData);
 		return new ResponseEntity<>(colorResponse,HttpStatus.OK); 
+	}
+	@PostMapping(value = "/deleteColor")
+	public ResponseEntity<Map<String,String>> deleteColor(@RequestBody int colorId){
+		String response = colorService.deleteColor(colorId);
+		Map<String,String> data = new HashMap<>();
+		data.put("responese", response);
+		return new ResponseEntity<>(data,HttpStatus.OK);
 	}
 }
