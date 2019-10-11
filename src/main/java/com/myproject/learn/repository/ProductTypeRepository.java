@@ -13,9 +13,9 @@ import com.myproject.learn.model.ProductType;
 @Repository
 public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     @Query(value = " SELECT id AS ID \n"
-    		+ " name AS PTNAME \n"
-    		+ " description AS PTDESCRIPTION \n"
-    		+ " FROM producttype", nativeQuery = true)
+    		          + " ,name AS PTNAME \n"
+    		          + " ,description AS PTDESCRIPTION \n"
+    		          + " FROM producttype", nativeQuery = true)
     List<Object[]> getListProductType();
     
     @Modifying
@@ -24,4 +24,10 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
 			+ " ,description) \n"
 			+ " VALUES (:name,:description) \n",nativeQuery=true)
 	void addProductType(@Param("name") String name,@Param("description") String description);
+    
+    @Modifying
+	@Query(value = "UPDATE producttype \n"
+			+ " SET name =:name , description =:description \n"
+			+ " WHERE id =:id",nativeQuery = true)
+	void updateProductType(@Param("name") String name,@Param("description") String description ,@Param("id") int id);
 }

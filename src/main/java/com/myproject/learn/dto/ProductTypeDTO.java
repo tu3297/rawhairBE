@@ -5,12 +5,28 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductTypeDTO {
-	@JsonProperty("productTypeName")
+	@JsonProperty("name")
     private String productTypeName;
-	@JsonProperty("productTypeDes")
+	@JsonProperty("description")
     private String productTypeDes;
-	@JsonProperty("productTypeId")
+	@JsonProperty("id")
 	private String productTypeId;
+	@JsonProperty("key")
+	private String key;
+	@JsonProperty("editing")
+	private String editing;
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public String getEditing() {
+		return editing;
+	}
+	public void setEditing(String editing) {
+		this.editing = editing;
+	}
 	public ProductTypeDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -35,10 +51,9 @@ public class ProductTypeDTO {
 	}
 	public ProductTypeDTO(Object[] pt) {
 		super();
-		String[] colorValues =  Arrays.asList(pt).toArray(new String[pt.length]);
-	    this.productTypeName = colorValues[1].toString();
-	    this.productTypeDes = colorValues[2].toString();
-	    this.productTypeId = colorValues[0].toString();
+	    this.productTypeName = pt[1].toString();
+	    this.productTypeDes = pt[2].toString();
+	    this.productTypeId = pt[0].toString();
 	    
 	}
 	

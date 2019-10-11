@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ColorDTO;
+import com.myproject.learn.dto.ListProductTypeDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
 import com.myproject.learn.service.ProductTypeService;
 
@@ -30,9 +31,18 @@ public class ProductTypeController {
 	@PostMapping(value="/addProductType")
 	public ResponseEntity<ProductTypeDTO> addProductType(@RequestBody String productType) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
-		ProductTypeDTO ptData = mapper.readValue(productType, ProductTypeDTO.class);
-		ProductTypeDTO response = new ProductTypeDTO();
-		return new ResponseEntity<>(response,HttpStatus.OK); 
+		ListProductTypeDTO ptData = mapper.readValue(productType, ListProductTypeDTO.class);
+		List<ProductTypeDTO> data = ptData.getDataSource();
+		for(ProductTypeDTO ptDTO : data) {
+			String isEdit = ptDTO.getEditing();
+			String id = ptDTO.getProductTypeId();
+			if(id.equals("")) {
+				productTypeService.addProductType(ptDTO);
+			} else if (isEdit.equals("true")) {
+				productTypeService.updateProductType(ptDTO);
+			}
+		}
+		return new ResponseEntity<>(new ProductTypeDTO(),HttpStatus.OK); 
 	}
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<ProductTypeDTO>> getAll(){

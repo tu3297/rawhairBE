@@ -7,5 +7,6 @@ import com.myproject.learn.dto.ProductTypeDTO;
 
 public interface ProductTypeService {
       List<ProductTypeDTO> getListProductType();
-      ProductTypeDTO addProductType(ProductTypeDTO color);
+      ProductTypeDTO addProductType(ProductTypeDTO pt);
+      ProductTypeDTO updateProductType(ProductTypeDTO pt);
 }
