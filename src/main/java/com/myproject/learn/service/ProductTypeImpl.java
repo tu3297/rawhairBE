@@ -21,6 +21,9 @@ public class ProductTypeImpl implements ProductTypeService {
 		List<Object[]> ptData = productTypeRepo.getListProductType();
 		List<ProductTypeDTO> listProductType = new ArrayList<>();
 		listProductType = ptData.stream().map(pt -> new ProductTypeDTO(pt)).collect(Collectors.toList());
+		for(int i = 0 ; i < listProductType.size() ; i++ ) {
+			listProductType.get(i).setKey(String.valueOf(i));
+		}
 		return listProductType;
 	}
 	@Transactional
@@ -36,6 +39,18 @@ public class ProductTypeImpl implements ProductTypeService {
 		// TODO Auto-generated method stub
 		productTypeRepo.updateProductType(pt.getProductTypeName(), pt.getProductTypeDes(), Integer.parseInt(pt.getProductTypeId()));
 		return pt;
+	}
+	@Transactional
+	@Override
+	public String deleteProductType(List<Integer> listId) {
+		// TODO Auto-generated method stub
+		try {
+		    productTypeRepo.deleteProductType(listId);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return "Fail";
+		}
+		return "Success";
 	}
 
 }

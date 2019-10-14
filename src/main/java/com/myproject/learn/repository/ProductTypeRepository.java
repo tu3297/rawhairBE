@@ -30,4 +30,10 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
 			+ " SET name =:name , description =:description \n"
 			+ " WHERE id =:id",nativeQuery = true)
 	void updateProductType(@Param("name") String name,@Param("description") String description ,@Param("id") int id);
+    
+    @Modifying
+	@Query(value = "DELETE \n"
+			+ " FROM producttype \n"
+			+ " WHERE id IN :listId",nativeQuery = true)
+	void deleteProductType(@Param("listId") List<Integer> listId);
 }

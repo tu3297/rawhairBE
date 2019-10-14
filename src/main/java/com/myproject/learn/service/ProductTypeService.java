@@ -9,4 +9,5 @@ public interface ProductTypeService {
       List<ProductTypeDTO> getListProductType();
       ProductTypeDTO addProductType(ProductTypeDTO pt);
       ProductTypeDTO updateProductType(ProductTypeDTO pt);
+      String deleteProductType(List<Integer> listId);
 }
