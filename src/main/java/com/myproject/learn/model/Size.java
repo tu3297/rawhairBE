@@ -19,7 +19,7 @@ public class Size {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 	    @Column
-	    private int ptoductType;
+	    private int productType;
 	    @Column
 	    private String length;
 	    @Column
