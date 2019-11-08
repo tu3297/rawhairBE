@@ -2,7 +2,6 @@ package com.myproject.learn.service;
 
 import java.util.List;
 
-import com.myproject.learn.dto.ColorDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
 
 public interface ProductTypeService {

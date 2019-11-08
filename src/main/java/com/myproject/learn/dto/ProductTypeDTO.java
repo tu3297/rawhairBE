@@ -1,7 +1,5 @@
 package com.myproject.learn.dto;
 
-import java.util.Arrays;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductTypeDTO {

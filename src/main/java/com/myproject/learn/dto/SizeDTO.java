@@ -3,50 +3,37 @@ package com.myproject.learn.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SizeDTO {
-	@JsonProperty("name")
-    private String sizeName;
+	@JsonProperty("id")
+	private String id;
 	@JsonProperty("length")
     private String length;
-	@JsonProperty("id")
-	private int sizeId;
 	@JsonProperty("key")
 	private String key;
 	@JsonProperty("editing")
 	private String editing;
     @JsonProperty("sizefrontal")
     private String sizeFrontal;
-    @JsonProperty("product_type")
-    private int product_type;
-    public int getProduct_type() {
-		return product_type;
+    @JsonProperty("producttype")
+    private String producttype;
+    public String getProducttype() {
+		return producttype;
 	}
-	public void setProduct_type(int product_type) {
-		this.product_type = product_type;
+	public void setProducttype(String producttype) {
+		this.producttype = producttype;
 	}
-	private int totalElemt;
-	public int getTotalElemt() {
-		return totalElemt;
+	public int getProductTypeId() {
+		return productTypeId;
 	}
-	public void setTotalElemt(int totalElemt) {
-		this.totalElemt = totalElemt;
+	public void setProductTypeId(int productTypeId) {
+		this.productTypeId = productTypeId;
 	}
-	public String getSizeName() {
-		return sizeName;
-	}
-	public void setSizeName(String sizeName) {
-		this.sizeName = sizeName;
-	}
+	@JsonProperty("productTypeId")
+    private int productTypeId;
 	public String getLength() {
 		return length;
 	}
 	public void setLength(String length) {
 		this.length = length;
-	}
-	public int getSizeId() {
-		return sizeId;
-	}
-	public void setSizeId(int sizeId) {
-		this.sizeId = sizeId;
 	}
 	public String getKey() {
 		return key;
@@ -70,11 +57,12 @@ public class SizeDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public SizeDTO(Object[] pt) {
-		System.out.println(pt[0]);
-		this.sizeId = Integer.parseInt(pt[0].toString());
-		this.length = pt[1].toString();
-		this.product_type = Integer.parseInt(pt[2].toString());
-		this.sizeFrontal = pt[3].toString();
 	}
 }

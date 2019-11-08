@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.myproject.learn.dto.ColorDTO;
 import com.myproject.learn.dto.ListProductTypeDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
 import com.myproject.learn.service.ProductTypeService;
