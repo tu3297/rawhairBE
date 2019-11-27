@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.myproject.learn.dto.ListProductTypeDTO;
+import com.myproject.learn.dto.ListProductTypeRC;
 import com.myproject.learn.dto.ProductTypeDTO;
 import com.myproject.learn.service.ProductTypeService;
 
@@ -34,7 +34,7 @@ public class ProductTypeController {
 	@PostMapping(value="/addProductType")
 	public ResponseEntity<ProductTypeDTO> addProductType(@RequestBody String productType) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
-		ListProductTypeDTO ptData = mapper.readValue(productType, ListProductTypeDTO.class);
+		ListProductTypeRC ptData = mapper.readValue(productType, ListProductTypeRC.class);
 		List<ProductTypeDTO> data = ptData.getDataSource();
 		for(ProductTypeDTO ptDTO : data) {
 			String isEdit = ptDTO.getEditing() == null ? "" : ptDTO.getEditing() ;

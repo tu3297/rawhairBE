@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ListSizeDTO {
+public class ListSizeRC {
 	    @JsonProperty("dataSource")
 	    private List<SizeDTO> dataSource;
 	    @JsonProperty("selectedRowKeys")
@@ -21,7 +21,7 @@ public class ListSizeDTO {
 		public void setSelectedRowKeys(List<Integer> selectedRowKeys) {
 			this.selectedRowKeys = selectedRowKeys;
 		}
-		public ListSizeDTO() {
+		public ListSizeRC() {
 			super();
 			// TODO Auto-generated constructor stub
 		}

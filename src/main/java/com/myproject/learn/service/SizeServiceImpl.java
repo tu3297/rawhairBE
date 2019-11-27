@@ -1,6 +1,5 @@
 package com.myproject.learn.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,11 +7,9 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.myproject.learn.dto.ListSizeDTO;
 import com.myproject.learn.dto.SizeDTO;
 import com.myproject.learn.repository.SizeRepository;
 
@@ -21,20 +18,21 @@ public class SizeServiceImpl implements sizeService {
     @Autowired
     private SizeRepository sizeRepo;
 	@Override
-	@SuppressWarnings("deprecation")
-	public List<SizeDTO> getListSize(int pageSize, int currentpage, String productTypeId) {
+	public ListSizeDTO getListSize(int pageSize, int currentpage, String productTypeId) {
 		// TODO Auto-generated method stub
-		Pageable pageable = new PageRequest(currentpage-1,pageSize);
-		List<Integer> producttype = new ArrayList<Integer>();
-		producttype.add(-1);
+		ListSizeDTO response = new ListSizeDTO();
+		int offset = (currentpage - 1) * pageSize;
+		List<Integer> producttype = null;
 		if(!productTypeId.equals("")) producttype =  Arrays.asList(productTypeId.split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());;
-		Page<Object[]> data =  sizeRepo.getListSize(producttype, pageable);
-		List<Object[]> dataPage = data.getContent();
-		List<SizeDTO> listSize = dataPage.stream().map(pt -> new SizeDTO(pt)).collect(Collectors.toList());
+		List<Object[]> data =  sizeRepo.getListSize(producttype, pageSize , offset);
+		List<SizeDTO> listSize = data.stream().map(pt -> new SizeDTO(pt)).collect(Collectors.toList());
 		for(int i = 0 ; i < listSize.size() ; i++ ) {
 			listSize.get(i).setKey(String.valueOf(i));
 		}
-		return listSize;
+	    response.setListSize(listSize);
+	    Integer total = sizeRepo.getTotal(producttype);
+	    response.setTotalElemt(total);
+	    return response;
 	}
 	@Transactional
 	@Override

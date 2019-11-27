@@ -15,7 +15,9 @@ public class SizeDTO {
     private String sizeFrontal;
     @JsonProperty("producttype")
     private String producttype;
-    public String getProducttype() {
+    @JsonProperty("productTypeId")
+    private int productTypeId;
+	public String getProducttype() {
 		return producttype;
 	}
 	public void setProducttype(String producttype) {
@@ -27,8 +29,6 @@ public class SizeDTO {
 	public void setProductTypeId(int productTypeId) {
 		this.productTypeId = productTypeId;
 	}
-	@JsonProperty("productTypeId")
-    private int productTypeId;
 	public String getLength() {
 		return length;
 	}
@@ -63,6 +63,11 @@ public class SizeDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public SizeDTO(Object[] pt) {
+	public SizeDTO(Object[] size) {
+		    this.id = size[0].toString();
+		    this.productTypeId = Integer.parseInt(size[1].toString());
+		    this.producttype = size[2].toString();
+		    this.length = size[3].toString();
+		    this.sizeFrontal = size[4].toString();
 	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ListProductTypeDTO {
+public class ListProductTypeRC {
     @JsonProperty("dataSource")
     private List<ProductTypeDTO> dataSource;
     @JsonProperty("selectedRowKeys")
@@ -21,7 +21,7 @@ public class ListProductTypeDTO {
 	public void setSelectedRowKeys(List<Integer> selectedRowKeys) {
 		this.selectedRowKeys = selectedRowKeys;
 	}
-	public ListProductTypeDTO() {
+	public ListProductTypeRC() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

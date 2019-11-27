@@ -37,8 +37,6 @@ public class Product {
 	    @JoinColumn(name = "info_id", referencedColumnName = "id")
 	    private ProductInfo info;
 	    @Column
-	    private String img_url;
-	    @Column
 	    private String code;
 		public Product() {
 			super();

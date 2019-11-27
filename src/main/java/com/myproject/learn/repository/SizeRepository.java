@@ -14,17 +14,21 @@ import com.myproject.learn.model.Size;
 @Repository
 public interface SizeRepository extends JpaRepository<Size, Long> {
     @Query(value="SELECT id as ID \n"
+    		+ " ,product_type AS PRODUCTTYPEID"
     		+ " ,(SELECT name FROM producttype A where A.id = B.product_type) as PRODUCTTYPENAME \n"
     		+ " ,length as LENGTH \n"
     		+ " ,size_frontals as SIZE_FRONTAL \n"
     		+ " FROM size B \n"
-    		+ " WHERE B.product_type IN :producttype"
-    		+ "  \n #pageable \n",
-    	  countQuery = "SELECT COUNT(*) \n"
-    	  		+ " FROM size B\n"
-    	  		+ " WHERE  B.product_type IN :producttype",
+    		+ " WHERE (:producttype is null) OR (:producttype is not null and B.product_type IN (:producttype)) \n"
+    		+ " LIMIT :limit OFFSET :offset",
     	  nativeQuery = true)
-    public Page<Object[]> getListSize(@Param("producttype") List<Integer> producttype,Pageable pageable);
+    public List<Object[]> getListSize(@Param("producttype") List<Integer> producttype,@Param("limit") int pageSize,@Param("offset") int offset);
+    
+    @Query(value ="SELECT COUNT(*) \n"
+    		+ " FROM size B \n"
+    		+ " WHERE (:producttype is null) OR (:producttype is not null and B.product_type IN (:producttype))",nativeQuery = true)
+    public Integer getTotal(@Param("producttype") List<Integer> producttype);
+    
     @Modifying
     @Query(value ="INSERT INTO size( \n"
     		+ " length, \n"
@@ -41,7 +45,7 @@ public interface SizeRepository extends JpaRepository<Size, Long> {
      void updateSize(@Param("length") String length,@Param("product_type") int product_type,@Param("sizefrontals") String sizefrontals,@Param("id") int id);
     @Modifying
     @Query(value ="DELETE \n" + 
-    		" FROM producttype \n" + 
+    		" FROM size \n" + 
     		" WHERE id IN :listId",nativeQuery = true)
     void deleteSize(@Param("listId") List<Integer> listId);
 }

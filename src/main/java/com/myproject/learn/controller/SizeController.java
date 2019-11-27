@@ -9,10 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,9 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.myproject.learn.dto.ListProductTypeDTO;
 import com.myproject.learn.dto.ListSizeDTO;
-import com.myproject.learn.dto.ProductTypeDTO;
+import com.myproject.learn.dto.ListSizeRC;
 import com.myproject.learn.dto.SizeDTO;
 import com.myproject.learn.service.sizeService;
 
@@ -39,14 +34,15 @@ public class SizeController {
 	@Autowired
 	private sizeService sizeService;
 	@GetMapping(value="/getAll")
-	public ResponseEntity<List<SizeDTO>> getAll(@RequestParam String pageSize,@RequestParam String curentPage,@RequestParam String productType){
-		List<SizeDTO> response = sizeService.getListSize(Integer.parseInt(pageSize), Integer.parseInt(curentPage), productType);
+	public ResponseEntity<ListSizeDTO> getAll(@RequestParam String pageSize,@RequestParam String curentPage,@RequestParam String productType){
+		ListSizeDTO response = new ListSizeDTO();
+		response =  sizeService.getListSize(Integer.parseInt(pageSize), Integer.parseInt(curentPage), productType);
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	@PostMapping("/addSize")
 	public ResponseEntity<SizeDTO> addSize(@RequestBody String size) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		ListSizeDTO sizeData = mapper.readValue(size, ListSizeDTO.class);
+		ListSizeRC sizeData = mapper.readValue(size, ListSizeRC.class);
 		List<SizeDTO> data = sizeData.getDataSource();
 		for(SizeDTO sizeDTO : data) {
 			String isEdit = sizeDTO.getEditing() == null ? "" : sizeDTO.getEditing() ;
