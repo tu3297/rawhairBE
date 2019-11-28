@@ -24,18 +24,12 @@ public class Product {
 	    private Long id;
 	    @Column
 	    private String name;
-	    @ManyToOne(optional = false)
-		@JoinColumn(name = "product_type")
-		private ProductType product_type;
-	    @ManyToOne(optional = false)
-		@JoinColumn(name = "color")
-		private Color color;
-	    @ManyToOne(optional = false)
-		@JoinColumn(name = "size")
-		private Size size;
-	    @OneToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "info_id", referencedColumnName = "id")
-	    private ProductInfo info;
+		@Column
+		private Integer product_type;
+		@Column(name = "size")
+		private Integer size;
+	    @Column
+	    private Integer info;
 	    @Column
 	    private String code;
 		public Product() {
@@ -54,22 +48,16 @@ public class Product {
 		public void setName(String name) {
 			this.name = name;
 		}
-		public ProductType getProduct_type() {
+		public Integer getProduct_type() {
 			return product_type;
 		}
-		public void setProduct_type(ProductType product_type) {
+		public void setProduct_type(Integer product_type) {
 			this.product_type = product_type;
 		}
-		public Color getColor() {
-			return color;
-		}
-		public void setColor(Color color) {
-			this.color = color;
-		}
-		public Size getSize() {
+		public Integer getSize() {
 			return size;
 		}
-		public void setSize(Size size) {
+		public void setSize(Integer size) {
 			this.size = size;
 		}
 	    

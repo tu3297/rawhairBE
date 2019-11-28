@@ -1,16 +1,11 @@
 package com.myproject.learn.model;
 
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "size")
@@ -24,9 +19,6 @@ public class Size {
 	    private String length;
 	    @Column
 	    private String sizeFrontals;
-	    @OneToMany(cascade = CascadeType.ALL, mappedBy = "size")
-		@JsonIgnore
-		private Collection<Product> product;
 		public Long getId() {
 			return id;
 		}

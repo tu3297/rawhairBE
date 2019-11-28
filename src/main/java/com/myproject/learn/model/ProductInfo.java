@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,8 +27,6 @@ public class ProductInfo {
 		public void setDetail(String detail) {
 			this.detail = detail;
 		}
-		 @OneToOne(mappedBy = "info")
-		 private Product product;
 		public ProductInfo(Long id, String detail) {
 			super();
 			this.id = id;

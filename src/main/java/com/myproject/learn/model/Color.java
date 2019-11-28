@@ -42,9 +42,6 @@ public class Color {
 		public void setName(String name) {
 			this.name = name;
 		}
-		@OneToMany(cascade = CascadeType.ALL, mappedBy = "color")
-		@JsonIgnore
-		private Collection<Product> product;
 		public Color() {
 			super();
 			// TODO Auto-generated constructor stub
