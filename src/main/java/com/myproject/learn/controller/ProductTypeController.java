@@ -41,7 +41,7 @@ public class ProductTypeController {
 			String id = ptDTO.getProductTypeId();
 			if(id.equals("")) {
 				productTypeService.addProductType(ptDTO);
-			} else if (isEdit.equals("true")) {
+			} else {
 				productTypeService.updateProductType(ptDTO);
 			}
 		}

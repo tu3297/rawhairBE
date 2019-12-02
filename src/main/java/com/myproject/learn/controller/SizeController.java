@@ -49,7 +49,7 @@ public class SizeController {
 			String id = sizeDTO.getId();
 			if(id.equals("")) {
 				sizeService.addSize(sizeDTO);
-			} else if (isEdit.equals("true")) {
+			} else{
 				sizeService.updateSize(sizeDTO);
 			}
 		}

@@ -43,4 +43,10 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
 			+ " FROM color \n"
 			+ " WHERE id =:colorId",nativeQuery = true)
 	void deleteColor(@Param("colorId") int colorId);
+	
+	@Query(value = "SELECT code AS CODE \n"
+			+ "  ,name AS NAME \n"
+			+ "  FROM color \n"
+			+ " WHERE id =:id",nativeQuery = true)
+	Object getColorById(@Param("id") Integer id);
 }

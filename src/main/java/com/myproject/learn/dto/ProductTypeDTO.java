@@ -13,6 +13,10 @@ public class ProductTypeDTO {
 	private String key;
 	@JsonProperty("editing")
 	private String editing;
+	@JsonProperty("colorId")
+	private String colorId;
+	@JsonProperty("color")
+	private String colorName;
 	public String getKey() {
 		return key;
 	}
@@ -21,6 +25,18 @@ public class ProductTypeDTO {
 	}
 	public String getEditing() {
 		return editing;
+	}
+	public String getColorId() {
+		return colorId;
+	}
+	public void setColorId(String colorId) {
+		this.colorId = colorId;
+	}
+	public String getColorName() {
+		return colorName;
+	}
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
 	}
 	public void setEditing(String editing) {
 		this.editing = editing;
@@ -52,6 +68,7 @@ public class ProductTypeDTO {
 	    this.productTypeName = pt[1].toString();
 	    this.productTypeDes = pt[2].toString();
 	    this.productTypeId = pt[0].toString();
+	    this.colorId = pt[3].toString();
 	    
 	}
 	
