@@ -27,11 +27,7 @@ public class ProductTypeImpl implements ProductTypeService {
 		List<ProductTypeDTO> listProductType = new ArrayList<>();
 		listProductType = ptData.stream().map(pt -> new ProductTypeDTO(pt)).collect(Collectors.toList());
 		for(int i = 0 ; i < listProductType.size() ; i++ ) {
-			Integer colorId = Integer.parseInt(listProductType.get(i).getColorId());
 			listProductType.get(i).setKey(String.valueOf(i));
-			Object color = colorRepo.getColorById(colorId);
-			Object[] colorValues =  (Object[]) color;
-			listProductType.get(i).setColorName(colorValues[1].toString());
 		}
 		return listProductType;
 	}
@@ -39,14 +35,14 @@ public class ProductTypeImpl implements ProductTypeService {
 	@Override
 	public ProductTypeDTO addProductType(ProductTypeDTO pt) {
 		// TODO Auto-generated method stub
-		productTypeRepo.addProductType(pt.getProductTypeName(),pt.getProductTypeDes(),pt.getColorId());
+		productTypeRepo.addProductType(pt.getProductTypeName(),pt.getProductTypeDes());
 		return pt;
 	}
 	@Transactional
 	@Override
 	public ProductTypeDTO updateProductType(ProductTypeDTO pt) {
 		// TODO Auto-generated method stub
-		productTypeRepo.updateProductType(pt.getProductTypeName(), pt.getProductTypeDes(), Integer.parseInt(pt.getProductTypeId()),pt.getColorId());
+		productTypeRepo.updateProductType(pt.getProductTypeName(), pt.getProductTypeDes(), Integer.parseInt(pt.getProductTypeId()));
 		return pt;
 	}
 	@Transactional

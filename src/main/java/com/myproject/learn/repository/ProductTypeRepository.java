@@ -15,23 +15,21 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     @Query(value = " SELECT id AS ID \n"
     		          + " ,name AS PTNAME \n"
     		          + " ,description AS PTDESCRIPTION \n"
-    		          + " ,color AS COLOR"
     		          + " FROM producttype", nativeQuery = true)
     List<Object[]> getListProductType();
     
     @Modifying
 	@Query(value = "INSERT INTO producttype( \n"
 			+ " name \n"
-			+ " ,description"
-			+ " ,color) \n"
-			+ " VALUES (:name,:description,:colorId) \n",nativeQuery=true)
-	void addProductType(@Param("name") String name,@Param("description") String description,@Param("colorId") String colorId);
+			+ " ,description)"
+			+ " VALUES (:name,:description) \n",nativeQuery=true)
+	void addProductType(@Param("name") String name,@Param("description") String description);
     
     @Modifying
 	@Query(value = "UPDATE producttype \n"
-			+ " SET name =:name , description =:description , color =:colorId \n"
+			+ " SET name =:name , description =:description \n"
 			+ " WHERE id =:id",nativeQuery = true)
-	void updateProductType(@Param("name") String name,@Param("description") String description ,@Param("id") int id,@Param("colorId") String colorId);
+	void updateProductType(@Param("name") String name,@Param("description") String description ,@Param("id") int id);
     
     @Modifying
 	@Query(value = "DELETE \n"
@@ -39,6 +37,9 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
 			+ " WHERE id IN :listId",nativeQuery = true)
 	void deleteProductType(@Param("listId") List<Integer> listId);
     
-    @Query(value ="",nativeQuery = true)
+//    @Query(value ="SELECT id as ID \n"
+//    		+ " ,color as COLORID \n"
+//    		+ " FROM producttype \n"
+//    		+ " GROUP BY ",nativeQuery = true)
     
 }
