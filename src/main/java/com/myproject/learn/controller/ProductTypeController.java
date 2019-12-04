@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ListProductTypeRC;
+import com.myproject.learn.dto.ProductTypeColorDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
 import com.myproject.learn.service.ProductTypeService;
 
@@ -50,6 +52,7 @@ public class ProductTypeController {
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<ProductTypeDTO>> getAll(){
 		List<ProductTypeDTO> listProductType = productTypeService.getListProductType();
+		List<ProductTypeColorDTO> listProductTypeColor = productTypeService.getListProductTypeColor();
 		return new ResponseEntity<>(listProductType,HttpStatus.OK);
 	}
 	@PostMapping(value = "/deleteProductType")
@@ -59,5 +62,16 @@ public class ProductTypeController {
 		String response = productTypeService.deleteProductType(ids);
 		data.put("responese", response);
 		return new ResponseEntity<>(data,HttpStatus.OK);
+	}
+	@PostMapping(value = "/updateProductTypeColor")
+	public ResponseEntity<?> updateProductTypeColor(@RequestBody String data) {
+		 data = data.substring(1, data.length()-1);
+		 String response = productTypeService.updateProductTypeColor(data);
+		 return new ResponseEntity(response, HttpStatus.OK);
+	}
+	@GetMapping(value = "/getProductTypeAndColor")
+	public ResponseEntity<List<ProductTypeColorDTO>> getProductTypeAndColor(){
+		List<ProductTypeColorDTO> listProductTypeColor = productTypeService.getListProductTypeColor();
+		return new ResponseEntity<>(listProductTypeColor,HttpStatus.OK);
 	}
 }

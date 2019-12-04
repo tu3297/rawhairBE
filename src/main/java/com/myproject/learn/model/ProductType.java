@@ -17,14 +17,6 @@ public class ProductType {
 	    private String name;
 	    @Column
 	    private String description;
-	    @Column
-	    private Integer color;
-		public Integer getColor() {
-			return color;
-		}
-		public void setColor(Integer color) {
-			this.color = color;
-		}
 		public String getDescription() {
 			return description;
 		}

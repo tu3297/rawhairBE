@@ -41,5 +41,25 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
 //    		+ " ,color as COLORID \n"
 //    		+ " FROM producttype \n"
 //    		+ " GROUP BY ",nativeQuery = true)
+    @Modifying
+    @Query(value ="INSERT INTO producttypecolor(pt_id,color_id) \n"
+    		+ " VALUES(:ptId,:colorId) \n",nativeQuery = true)
+    void insertProductTypeColor(@Param("colorId") Integer color,@Param("ptId") Integer ptId);
     
+    @Modifying
+    @Query(value ="UPDATE producttypecolor \n"
+    		+ " SET color_id =:color , pt_id =:ptId \n"
+    		+ " WHERE id =:id ",nativeQuery = true)
+    void updateProductTypeColor(@Param("color") Integer color,@Param("id") Integer id,@Param("ptId") Integer ptId);
+    
+    @Query(value ="SELECT COUNT(*) \n"
+    		+ " FROM producttypecolor \n"
+    		+ " WHERE color_id =:colorId AND pt_id =:ptId",nativeQuery = true)
+    Integer checkExistProductTypeColor(@Param("colorId") Integer colorId,@Param("ptId") Integer ptId);
+    
+    @Query(value ="SELECT id AS ID \n"
+    		+ " ,pt_id AS PTID \n"
+    		+ " ,color_id AS COLORId \n"
+    		+ " FROM producttypecolor",nativeQuery = true)
+    List<Object[]> getAllProjectTypeColor();
 }
