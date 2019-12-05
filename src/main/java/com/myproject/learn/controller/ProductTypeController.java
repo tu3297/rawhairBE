@@ -52,7 +52,6 @@ public class ProductTypeController {
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<ProductTypeDTO>> getAll(){
 		List<ProductTypeDTO> listProductType = productTypeService.getListProductType();
-		List<ProductTypeColorDTO> listProductTypeColor = productTypeService.getListProductTypeColor();
 		return new ResponseEntity<>(listProductType,HttpStatus.OK);
 	}
 	@PostMapping(value = "/deleteProductType")
@@ -69,8 +68,8 @@ public class ProductTypeController {
 		 String response = productTypeService.updateProductTypeColor(data);
 		 return new ResponseEntity(response, HttpStatus.OK);
 	}
-	@GetMapping(value = "/getProductTypeAndColor")
-	public ResponseEntity<List<ProductTypeColorDTO>> getProductTypeAndColor(){
+	@GetMapping(value = "/getAllProductTypeColor")
+	public ResponseEntity<List<ProductTypeColorDTO>> getAllProductTypeColor(){
 		List<ProductTypeColorDTO> listProductTypeColor = productTypeService.getListProductTypeColor();
 		return new ResponseEntity<>(listProductTypeColor,HttpStatus.OK);
 	}
