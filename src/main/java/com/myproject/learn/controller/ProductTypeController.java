@@ -63,10 +63,12 @@ public class ProductTypeController {
 		return new ResponseEntity<>(data,HttpStatus.OK);
 	}
 	@PostMapping(value = "/updateProductTypeColor")
-	public ResponseEntity<?> updateProductTypeColor(@RequestBody String data) {
+	public ResponseEntity<Map<String,String>> updateProductTypeColor(@RequestBody String data) {
+		 Map<String,String> dataResponse = new HashMap<>();
 		 data = data.substring(1, data.length()-1);
 		 String response = productTypeService.updateProductTypeColor(data);
-		 return new ResponseEntity(response, HttpStatus.OK);
+		 dataResponse.put("responese", response);
+		 return new ResponseEntity(dataResponse, HttpStatus.OK);
 	}
 	@GetMapping(value = "/getAllProductTypeColor")
 	public ResponseEntity<List<ProductTypeColorDTO>> getAllProductTypeColor(){

@@ -42,17 +42,17 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
 //    		+ " FROM producttype \n"
 //    		+ " GROUP BY ",nativeQuery = true)
     @Modifying
-    @Query(value ="INSERT INTO producttypecolor(pt_id,color_id) \n"
-    		+ " VALUES(:ptId,:colorId) \n",nativeQuery = true)
+    @Query(value ="INSERT INTO producttypecolor(pt_id,color_id,use_yn) \n"
+    		+ " VALUES(:ptId,:colorId, 'Y') \n",nativeQuery = true)
     void insertProductTypeColor(@Param("colorId") Integer color,@Param("ptId") Integer ptId);
     
     @Modifying
     @Query(value ="UPDATE producttypecolor \n"
-    		+ " SET color_id =:color , pt_id =:ptId \n"
-    		+ " WHERE id =:id ",nativeQuery = true)
-    void updateProductTypeColor(@Param("color") Integer color,@Param("id") Integer id,@Param("ptId") Integer ptId);
+    		+ " SET color_id =:color , pt_id =:ptId , use_yn = (CASE WHEN :useYn = 'false' THEN 'N' ELSE 'Y' END) \n"
+    		+ " WHERE id =:id",nativeQuery = true)
+    void updateProductTypeColor(@Param("color") Integer color,@Param("id") Integer id,@Param("ptId") Integer ptId ,@Param("useYn") String useYn);
     
-    @Query(value ="SELECT COUNT(*) \n"
+    @Query(value ="SELECT id \n"
     		+ " FROM producttypecolor \n"
     		+ " WHERE color_id =:colorId AND pt_id =:ptId",nativeQuery = true)
     Integer checkExistProductTypeColor(@Param("colorId") Integer colorId,@Param("ptId") Integer ptId);
@@ -60,6 +60,7 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     @Query(value ="SELECT id AS ID \n"
     		+ " ,pt_id AS PTID \n"
     		+ " ,color_id AS COLORId \n"
+    		+ " ,use_yn AS USE_YN"
     		+ " FROM producttypecolor",nativeQuery = true)
     List<Object[]> getAllProjectTypeColor();
 }

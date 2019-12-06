@@ -9,6 +9,8 @@ public class ProductTypeColorDTO {
     private String ptId;
 	@JsonProperty("colorId")
 	private String colorId;
+	@JsonProperty("useYn")
+	private String useYn;
 	public ProductTypeColorDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -18,6 +20,12 @@ public class ProductTypeColorDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getUseYn() {
+		return useYn;
+	}
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
 	}
 	public String getPtId() {
 		return ptId;
@@ -33,9 +41,10 @@ public class ProductTypeColorDTO {
 	}
 	public ProductTypeColorDTO(Object[] pt) {
 		super();
-	    this.id = pt[1].toString();
-	    this.ptId = pt[2].toString();
-	    this.colorId = pt[0].toString();
+	    this.id = pt[0].toString();
+	    this.ptId = pt[1].toString();
+	    this.colorId = pt[2].toString();
+	    this.useYn = pt[3].toString();
 	    
 	}
 	

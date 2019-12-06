@@ -65,10 +65,11 @@ public class ProductTypeImpl implements ProductTypeService {
 		// TODO Auto-generated method stub
 		String productTypeId = data.split(",")[0];
 		String colorId = data.split(",")[1];
+		String useYn = data.split(",")[2];
 		Integer isExist = this.checkExistProductTypeColor(Integer.parseInt(colorId),Integer.parseInt(productTypeId));
 		try {
-		if(isExist != 0) {
-		   productTypeRepo.updateProductTypeColor(Integer.parseInt(colorId),1, Integer.parseInt(productTypeId));
+		 if(isExist != null) {
+		    productTypeRepo.updateProductTypeColor(Integer.parseInt(colorId) , isExist , Integer.parseInt(productTypeId),useYn);
 		} else {
 			productTypeRepo.insertProductTypeColor(Integer.parseInt(colorId),Integer.parseInt(productTypeId));
 		}
