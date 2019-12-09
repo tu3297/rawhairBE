@@ -49,4 +49,11 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
 			+ "  FROM color \n"
 			+ " WHERE id =:id",nativeQuery = true)
 	Object getColorById(@Param("id") Integer id);
+	
+	@Query(value = "SELECT id AS ID \n"
+			+ " ,code AS CODE \n"
+			+ " ,name AS NAME \n"
+			+ " FROM color \n"
+			+ " WHERE id IN (SELECT colorId FROM producttypecolor WHERE pt_id =:productTypeId)", nativeQuery = true)
+	List<Object[]> getListColorOfProductType(@Param("productTypeId") Integer productTypeId);
 }

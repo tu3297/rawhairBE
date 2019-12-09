@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ColorDTO;
+import com.myproject.learn.dto.SizeProductDTO;
 import com.myproject.learn.service.ColorService;
 @RestController
 @CrossOrigin("*")
@@ -48,4 +51,9 @@ public class ColorController {
 		data.put("responese", response);
 		return new ResponseEntity<>(data,HttpStatus.OK);
 	}
+	@GetMapping(value = "/getColorOfProductType")
+    public ResponseEntity<List<ColorDTO>> getColorOfProductType(@RequestParam String productTypeId){
+		   List<ColorDTO> listColors = colorService.getListColorOfProductType(Integer.parseInt(productTypeId));
+		   return new ResponseEntity<>(listColors,HttpStatus.OK);
+    }
 }

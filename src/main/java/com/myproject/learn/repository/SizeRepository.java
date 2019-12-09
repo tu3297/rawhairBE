@@ -48,4 +48,11 @@ public interface SizeRepository extends JpaRepository<Size, Long> {
     		" FROM size \n" + 
     		" WHERE id IN :listId",nativeQuery = true)
     void deleteSize(@Param("listId") List<Integer> listId);
+    
+    @Query(value = "SELECT id as ID \n"
+    		+ " ,length as LENGTH \n"
+    		+ " ,size_frontals as SIZE_FRONTALS \n"
+    		+ " FROM size \n"
+    		+ " WHERE product_type =:producttype",nativeQuery = true)
+    List<Object[]> getListSizeOfProductType(@Param("producttype") Integer producttype);
 }

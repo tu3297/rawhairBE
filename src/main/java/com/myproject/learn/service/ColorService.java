@@ -10,4 +10,5 @@ public interface ColorService {
     ColorDTO updateColor(ColorDTO color);
     String deleteColor(int colorId);
     boolean checkExistColor(ColorDTO color);
+    List<ColorDTO> getListColorOfProductType(Integer productTypeId);
 }

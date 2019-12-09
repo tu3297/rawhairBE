@@ -61,5 +61,12 @@ public class ColorServiceImpl implements ColorService {
 			return "Fail";
 		}
 	}
+	@Override
+	public List<ColorDTO> getListColorOfProductType(Integer productTypeId) {
+		// TODO Auto-generated method stub
+		List<Object[]> colorData = colorRepo.getListColorOfProductType(productTypeId);
+		List<ColorDTO> listColors = colorData.stream().map(pt -> new ColorDTO(pt)).collect(Collectors.toList());
+		return listColors;
+	}
 
 }

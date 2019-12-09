@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.myproject.learn.dto.ListSizeDTO;
 import com.myproject.learn.dto.SizeDTO;
+import com.myproject.learn.dto.SizeProductDTO;
 import com.myproject.learn.repository.SizeRepository;
 
 @Service
@@ -59,6 +60,13 @@ public class SizeServiceImpl implements sizeService {
 			return "Fail";
 		}
 		return "Success";
+	}
+	@Override
+	public List<SizeProductDTO> getListSizeOfproductType(Integer productTypeId) {
+		// TODO Auto-generated method stub
+		List<Object[]> sizeData = sizeRepo.getListSizeOfProductType(productTypeId);
+		List<SizeProductDTO> listSize = sizeData.stream().map(pt -> new SizeProductDTO(pt)).collect(Collectors.toList());
+		return listSize;
 	}
 
 }

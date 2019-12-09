@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ListSizeDTO;
 import com.myproject.learn.dto.ListSizeRC;
 import com.myproject.learn.dto.SizeDTO;
+import com.myproject.learn.dto.SizeProductDTO;
 import com.myproject.learn.service.sizeService;
 
 @RestController
@@ -62,5 +63,12 @@ public class SizeController {
 		String response = sizeService.deleteSize(ids);
 		data.put("responese", response);
 		return new ResponseEntity<>(data,HttpStatus.OK);
+	}
+	
+    @GetMapping(value="/getAllSizeOfProductType")
+    public ResponseEntity<List<SizeProductDTO>> getAll(@RequestParam Integer productTypeId){
+		List<SizeProductDTO> response = new ArrayList<>();
+		response =  sizeService.getListSizeOfproductType(productTypeId);
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 }

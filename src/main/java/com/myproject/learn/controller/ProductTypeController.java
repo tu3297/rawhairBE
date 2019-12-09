@@ -68,7 +68,7 @@ public class ProductTypeController {
 		 data = data.substring(1, data.length()-1);
 		 String response = productTypeService.updateProductTypeColor(data);
 		 dataResponse.put("responese", response);
-		 return new ResponseEntity(dataResponse, HttpStatus.OK);
+		 return new ResponseEntity(dataResponse  , HttpStatus.OK);
 	}
 	@GetMapping(value = "/getAllProductTypeColor")
 	public ResponseEntity<List<ProductTypeColorDTO>> getAllProductTypeColor(){

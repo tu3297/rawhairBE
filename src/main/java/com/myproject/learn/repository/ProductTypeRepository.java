@@ -37,10 +37,6 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
 			+ " WHERE id IN :listId",nativeQuery = true)
 	void deleteProductType(@Param("listId") List<Integer> listId);
     
-//    @Query(value ="SELECT id as ID \n"
-//    		+ " ,color as COLORID \n"
-//    		+ " FROM producttype \n"
-//    		+ " GROUP BY ",nativeQuery = true)
     @Modifying
     @Query(value ="INSERT INTO producttypecolor(pt_id,color_id,use_yn) \n"
     		+ " VALUES(:ptId,:colorId, 'Y') \n",nativeQuery = true)
@@ -63,4 +59,5 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     		+ " ,use_yn AS USE_YN"
     		+ " FROM producttypecolor",nativeQuery = true)
     List<Object[]> getAllProjectTypeColor();
+    
 }
