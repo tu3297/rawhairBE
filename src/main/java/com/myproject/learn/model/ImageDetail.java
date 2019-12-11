@@ -14,7 +14,7 @@ public class ImageDetail {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 	    @Column
-	    private int id_product;
+	    private String id_product;
 	    @Column
 	    private String ref_key;
 	    @Column
@@ -31,10 +31,10 @@ public class ImageDetail {
 		public void setId(Long id) {
 			this.id = id;
 		}
-		public int getId_info() {
+		public String getId_info() {
 			return id_product;
 		}
-		public void setId_info(int id_info) {
+		public void setId_info(String id_info) {
 			this.id_product = id_info;
 		}
 		public String getImg_url() {

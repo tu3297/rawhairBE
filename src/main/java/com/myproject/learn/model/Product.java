@@ -19,9 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "product")
 public class Product {
-	    @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long id;
+        @Id
+	    private String id;
 	    @Column
 	    private String name;
 		@Column
@@ -36,10 +35,10 @@ public class Product {
 			super();
 			// TODO Auto-generated constructor stub
 		}
-		public Long getId() {
+		public String getId() {
 			return id;
 		}
-		public void setId(Long id) {
+		public void setId(String id) {
 			this.id = id;
 		}
 		public String getName() {

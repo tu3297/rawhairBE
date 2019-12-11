@@ -35,10 +35,9 @@ public class ColorDTO {
 	}
 	public ColorDTO(Object[] color) {
 		super();
-		String[] colorValues =  Arrays.asList(color).toArray(new String[color.length]);
-	    this.colorName = colorValues[1].toString();
-	    this.colorCode = colorValues[2].toString();
-	    this.colorId = colorValues[0].toString();
+	    this.colorName = color[1].toString();
+	    this.colorCode = color[2].toString();
+	    this.colorId = color[0].toString();
 	    
 	}
 	public String getColorName() {

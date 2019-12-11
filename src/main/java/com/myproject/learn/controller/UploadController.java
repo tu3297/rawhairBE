@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.myproject.learn.service.UploadService;
 @RestController
 @CrossOrigin("*")
 @RequestMapping
 public class UploadController {
 	 private static String UPLOADED_FOLDER = "D://temp//";
+	 @Autowired
+	 private UploadService uploadService;
    @PostMapping(value ="/upload")
-   public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile uploadfile) {
+   public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile uploadfile,@RequestParam("id") String idProduct) {
 	   if (uploadfile.isEmpty()) {
            return new ResponseEntity("please select a file!", HttpStatus.OK);
        }
@@ -31,6 +36,8 @@ public class UploadController {
        }
 	   try {
            saveUploadedFiles(Arrays.asList(uploadfile));
+           String path = uploadfile.getOriginalFilename();
+           uploadService.uploadImage(path, idProduct);
        } catch (IOException e) {
            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
        }

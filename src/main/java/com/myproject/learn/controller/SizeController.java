@@ -65,8 +65,8 @@ public class SizeController {
 		return new ResponseEntity<>(data,HttpStatus.OK);
 	}
 	
-    @GetMapping(value="/getAllSizeOfProductType")
-    public ResponseEntity<List<SizeProductDTO>> getAll(@RequestParam Integer productTypeId){
+    @GetMapping(value="/getSizeOfProductType")
+    public ResponseEntity<List<SizeProductDTO>> getSizeOfProductType(@RequestParam Integer productTypeId){
 		List<SizeProductDTO> response = new ArrayList<>();
 		response =  sizeService.getListSizeOfproductType(productTypeId);
 		return new ResponseEntity<>(response,HttpStatus.OK);
