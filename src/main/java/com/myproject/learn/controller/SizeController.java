@@ -24,8 +24,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ListSizeDTO;
 import com.myproject.learn.dto.ListSizeRC;
+import com.myproject.learn.dto.ProductTypeDTO;
 import com.myproject.learn.dto.SizeDTO;
 import com.myproject.learn.dto.SizeProductDTO;
+import com.myproject.learn.service.ProductTypeService;
 import com.myproject.learn.service.sizeService;
 
 @RestController
@@ -34,6 +36,9 @@ import com.myproject.learn.service.sizeService;
 public class SizeController {
 	@Autowired
 	private sizeService sizeService;
+	
+	@Autowired
+	private ProductTypeService ptService;
 	@GetMapping(value="/getAll")
 	public ResponseEntity<ListSizeDTO> getAll(@RequestParam String pageSize,@RequestParam String curentPage,@RequestParam String productType){
 		ListSizeDTO response = new ListSizeDTO();

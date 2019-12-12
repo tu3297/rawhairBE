@@ -13,4 +13,5 @@ public interface ProductTypeService {
       String deleteProductType(List<Integer> listId);
       String updateProductTypeColor(String data);
       Integer checkExistProductTypeColor(Integer colorId,Integer ptId);
+      ProductTypeDTO getProductTypeById(Integer productTypeId);
 }

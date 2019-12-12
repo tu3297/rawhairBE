@@ -1,5 +1,6 @@
 package com.myproject.learn.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,7 +65,8 @@ public class SizeServiceImpl implements sizeService {
 	@Override
 	public List<SizeProductDTO> getListSizeOfproductType(Integer productTypeId) {
 		// TODO Auto-generated method stub
-		List<Object[]> sizeData = sizeRepo.getListSizeOfProductType(productTypeId);
+		List<String> regex = Arrays.asList("Closure","Frontal");
+		List<Object[]> sizeData = sizeRepo.getListSizeOfProductType(productTypeId,regex);
 		List<SizeProductDTO> listSize = sizeData.stream().map(pt -> new SizeProductDTO(pt)).collect(Collectors.toList());
 		return listSize;
 	}

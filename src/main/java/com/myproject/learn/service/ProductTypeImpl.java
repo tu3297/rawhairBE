@@ -92,5 +92,12 @@ public class ProductTypeImpl implements ProductTypeService {
 		List<ProductTypeColorDTO> listPTCorlor =  data.stream().map(pt -> new ProductTypeColorDTO(pt)).collect(Collectors.toList());
 		return listPTCorlor;
 	}
+	@Override
+	public ProductTypeDTO getProductTypeById(Integer productTypeId) {
+		// TODO Auto-generated method stub
+		List<Object[]> data = productTypeRepo.getProductTypeById(productTypeId);
+		List<ProductTypeDTO> listPT =  data.stream().map(pt -> new ProductTypeDTO(pt)).collect(Collectors.toList());
+		return listPT.get(0);
+	}
 
 }

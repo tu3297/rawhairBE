@@ -60,4 +60,11 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     		+ " FROM producttypecolor",nativeQuery = true)
     List<Object[]> getAllProjectTypeColor();
     
+    @Query(value ="SELECT id AS ID \n"
+    		+ " name AS NAME \n"
+    		+ " description AS DESCRIPTION \n"
+    		+ " FROM producttype \n"
+    		+ " WHERE id =:idProductType",nativeQuery = true)
+    List<Object[]> getProductTypeById (@Param("idProductType") Integer idProductType);
+    
 }
