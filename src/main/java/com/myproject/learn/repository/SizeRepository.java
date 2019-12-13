@@ -57,9 +57,9 @@ public interface SizeRepository extends JpaRepository<Size, Long> {
     		+ " WHERE product_type =:producttype",nativeQuery = true)
     List<Object[]> getListSizeOfProductType(@Param("producttype") Integer producttype,@Param("regex") List<String> regex);
     
-    @Query(value = "SELECT id as ID \n"
-    		+ " ,size_frontals as SIZE_FRONTAL\n"
+    @Query(value ="SELECT id as ID \n"
+    		+ " ,length as LENGTH \n"
     		+ " FROM size \n"
-    		+ " WHERE product_type =:producttype",nativeQuery = true)
-    List<Object[]> getListSizeOfClosureOrFrontal(@Param("producttype") Integer producttype);
+    		+ " WHERE product_type =:producttype AND size_frontals =:size",nativeQuery = true)
+    List<Object[]> getListSizeOfClosureOrFrontal(@Param("producttype") Integer producttype,@Param("size") String size);
 }

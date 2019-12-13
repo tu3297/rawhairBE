@@ -70,5 +70,12 @@ public class SizeServiceImpl implements sizeService {
 		List<SizeProductDTO> listSize = sizeData.stream().map(pt -> new SizeProductDTO(pt)).collect(Collectors.toList());
 		return listSize;
 	}
+	@Override
+	public List<SizeProductDTO> getListSizeOfClosureFrontal(Integer productId, String size) {
+		// TODO Auto-generated method stub
+		List<Object[]> sizeData = sizeRepo.getListSizeOfClosureOrFrontal(productId, size);
+		List<SizeProductDTO> listSize = sizeData.stream().map(pt -> new SizeProductDTO(pt)).collect(Collectors.toList());
+		return listSize;
+	}
 
 }

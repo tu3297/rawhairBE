@@ -76,4 +76,11 @@ public class SizeController {
 		response =  sizeService.getListSizeOfproductType(productTypeId);
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
+    
+    @GetMapping(value="/getSizeOfFrontalClosure")
+    public ResponseEntity<List<SizeProductDTO>> getSizeOfFrontalClosure(@RequestParam Integer productTypeId,@RequestParam("size") String size){
+		List<SizeProductDTO> response = new ArrayList<>();
+		response =  sizeService.getListSizeOfClosureFrontal(productTypeId,size);
+		return new ResponseEntity<>(response,HttpStatus.OK);
+	}
 }

@@ -42,8 +42,8 @@ public class SizeProductDTO {
 	public SizeProductDTO(Object[] data) {
 		this.id= (data[0] != null ? data[0] : "").toString();
 		this.length = (data[1] != null ? data[1] : "").toString();
-		this.sizeFrontal = (data[2] != null ? data[2] : "").toString();
-		this.isFrontalClosure = (data[3] != null ? data[3] : "").toString();
+		if(data.length >= 3) this.sizeFrontal = (data[2] != null ? data[2] : "").toString();
+		if(data.length >= 4) this.isFrontalClosure = (data[3] != null ? data[3] : "").toString();
 	}
 	
 }

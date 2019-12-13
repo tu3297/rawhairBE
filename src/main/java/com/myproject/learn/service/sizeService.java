@@ -12,4 +12,5 @@ public interface sizeService {
     SizeDTO updateSize(SizeDTO size);
     String deleteSize(List<Integer> listId);
     List<SizeProductDTO> getListSizeOfproductType(Integer productTypeId);
+    List<SizeProductDTO> getListSizeOfClosureFrontal(Integer productId,String size);
 }
