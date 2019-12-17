@@ -22,7 +22,7 @@ public class Product {
         @Id
 	    private String id;
 	    @Column
-	    private String name;
+	    private String color;
 		@Column
 		private Integer product_type;
 		@Column(name = "size")
@@ -30,7 +30,15 @@ public class Product {
 	    @Column
 	    private Integer info;
 	    @Column
-	    private String code;
+	    private String code;   
+	    @Column
+	    private String price;
+		public String getPrice() {
+			return price;
+		}
+		public void setPrice(String price) {
+			this.price = price;
+		}
 		public Product() {
 			super();
 			// TODO Auto-generated constructor stub
@@ -41,11 +49,11 @@ public class Product {
 		public void setId(String id) {
 			this.id = id;
 		}
-		public String getName() {
-			return name;
+		public String getColor() {
+			return color;
 		}
-		public void setName(String name) {
-			this.name = name;
+		public void setColor(String name) {
+			this.color = name;
 		}
 		public Integer getProduct_type() {
 			return product_type;
