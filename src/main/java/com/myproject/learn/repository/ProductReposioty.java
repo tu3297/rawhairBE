@@ -26,15 +26,15 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
     		+ " ,C.id as COLORID \n"
     		+ " ,C.name as COLORNAME \n"
     		+ " ,C.code as COLORCODE \n"
-    		+ " ,D.length as LENGTH"
-    		+ " ,D.size_frontals as FRONTAL"
-    		+ " ,A.price as PRICE"
+    		+ " ,D.length as LENGTH \n"
+    		+ " ,D.size_frontals as FRONTAL \n"
+    		+ " ,A.price as PRICE \n"
     		+ " FROM product A,producttype B,color C,size D \n"
     		+ " WHERE A.product_type = B.id AND A.color = C.id AND A.size = D.id \n"
     		+ " AND (:producttype is null) OR (:producttype is not null and A.product_type IN (:producttype)) \n"
     		+ " AND (:length is null) OR (:length is not null and D.length IN (:length)) \n"
     		+ " AND (:color is null) OR (:color is not null and A.color IN (:color)) \n"
-    		+ " AND (:productId is null) OR (:productId is not null and A.id like %:productId%)) \n"
+    		+ " AND (:productId is null) OR (:productId is not null and A.id like %:productId%) \n"
     		+ " LIMIT :limit OFFSET :offset",nativeQuery = true)
     List<Object[]> getAllProduct(@Param("producttype") List<String> productType,@Param("length") List<String> length,@Param("color") List<String> color
     		,@Param("productId") String productId,@Param("limit") Integer limit,@Param("offset") Integer offset);

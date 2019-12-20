@@ -57,6 +57,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return product;
 	}
+	@SuppressWarnings("unused")
 	@Override
 	public List<ProductDTO> getAllProduct(List<String> productType, List<String> color, List<String> length,
 			Integer limit, Integer offset, String productId) {
