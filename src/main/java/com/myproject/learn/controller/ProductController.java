@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.myproject.learn.dto.ProductDTO;
 import com.myproject.learn.dto.ProductRC;
 import com.myproject.learn.service.ProductService;
 
@@ -43,8 +44,9 @@ public class ProductController {
 	  else return new ResponseEntity(productData, new HttpHeaders(), HttpStatus.OK);
   }
   @GetMapping(value = "/getAll")
-  ResponseEntity<?> getAll(@RequestParam String pageSize , @RequestParam String curentPage , @RequestParam String id , @RequestParam List<String> productType,@RequestParam List<String> length,@RequestParam List<String> color){
-	  productService.getAllProduct(productType, color, length, Integer.parseInt(pageSize), Integer.parseInt(curentPage), id);
-	  return new ResponseEntity(null, new HttpHeaders(), HttpStatus.OK);
+  ResponseEntity<?> getAll(@RequestParam String pageSize , @RequestParam String curentPage , @RequestParam String id , @RequestParam List<String> productType,@RequestParam List<String> length,@RequestParam List<String> color,
+		  @RequestParam String sort){
+	List<ProductDTO> response =  productService.getAllProduct(productType, color, length, Integer.parseInt(pageSize), Integer.parseInt(curentPage), id , sort);
+	return new ResponseEntity(response, new HttpHeaders(), HttpStatus.OK);
   }
 }

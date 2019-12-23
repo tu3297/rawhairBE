@@ -83,9 +83,18 @@ public class ProductDTO {
 	public void setLength(String length) {
 		this.length = length;
 	}
-	public ProductDTO() {
+	public ProductDTO(Object[] data) {
 		super();
 		// TODO Auto-generated constructor stub
+		this.idProduct = data[0].toString();
+		this.idProductType = data[1].toString();
+		this.productTypeName = data[2].toString();
+		this.idColor = data[3].toString();
+		this.colorCode = data[4].toString();
+		this.colorName = data[5].toString();
+		this.length = data[6].toString();
+		this.sizeFrontal = data[7].toString();
+		this.price = data[8].toString();
 	}
 	
     

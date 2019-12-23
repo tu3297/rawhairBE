@@ -3,14 +3,20 @@ package com.myproject.learn.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.myproject.learn.dto.ProductDTO;
 import com.myproject.learn.dto.ProductRC;
+import com.myproject.learn.dto.SizeDTO;
 import com.myproject.learn.repository.ProductReposioty;
 
 @Service
@@ -60,9 +66,18 @@ public class ProductServiceImpl implements ProductService {
 	@SuppressWarnings("unused")
 	@Override
 	public List<ProductDTO> getAllProduct(List<String> productType, List<String> color, List<String> length,
-			Integer limit, Integer offset, String productId) {
+			Integer pageSize, Integer currentpage, String productId,String sort) {
 		// TODO Auto-generated method stub
-		List<Object[]> dataProduct = productRepo.getAllProduct(productType, length, color, productId, limit, offset);
-		return null;
+		Pageable paging = null;
+		if(sort.equals("false")) paging = PageRequest.of(currentpage, pageSize,Sort.by("price").descending());
+		else paging = PageRequest.of(currentpage, pageSize,Sort.by("price").ascending());
+		if(productId.equals("")) productId = null;
+		if(productType.size() == 0) productType = null;
+		if(color.size() == 0) color = null;
+		if(length.size() == 0 ) length = null;
+		Page<Object[]> dataProduct = productRepo.getAllProduct(productType, length, color, productId,paging);
+		List<Object[]> product = dataProduct.getContent();
+		List<ProductDTO> listProduct = product.stream().map(pt -> new ProductDTO(pt)).collect(Collectors.toList());
+		return listProduct;
 	}
 }

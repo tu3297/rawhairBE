@@ -19,14 +19,14 @@ public interface SizeRepository extends JpaRepository<Size, Long> {
     		+ " ,length as LENGTH \n"
     		+ " ,size_frontals as SIZE_FRONTAL \n"
     		+ " FROM size B \n"
-    		+ " WHERE (:producttype is null) OR (:producttype is not null and B.product_type IN (:producttype)) \n"
+    		+ " WHERE coalesce(:producttype,null) is null OR B.product_type IN (:producttype) \n"
     		+ " LIMIT :limit OFFSET :offset",
     	  nativeQuery = true)
     public List<Object[]> getListSize(@Param("producttype") List<Integer> producttype,@Param("limit") int pageSize,@Param("offset") int offset);
     
     @Query(value ="SELECT COUNT(*) \n"
     		+ " FROM size B \n"
-    		+ " WHERE (:producttype is null) OR (:producttype is not null and B.product_type IN (:producttype))",nativeQuery = true)
+    		+ " WHERE coalesce(:producttype,null) is null OR B.product_type IN (:producttype)",nativeQuery = true)
     public Integer getTotal(@Param("producttype") List<Integer> producttype);
     
     @Modifying

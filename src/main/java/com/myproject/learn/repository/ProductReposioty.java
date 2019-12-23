@@ -2,6 +2,8 @@ package com.myproject.learn.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,13 +31,22 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
     		+ " ,D.length as LENGTH \n"
     		+ " ,D.size_frontals as FRONTAL \n"
     		+ " ,A.price as PRICE \n"
-    		+ " FROM product A,producttype B,color C,size D \n"
+    		+ " FROM (((product A JOIN producttype B ON A.product_type = B.id) \n"
+    		+ "  JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id )\n"
     		+ " WHERE A.product_type = B.id AND A.color = C.id AND A.size = D.id \n"
-    		+ " AND (:producttype is null) OR (:producttype is not null and A.product_type IN (:producttype)) \n"
-    		+ " AND (:length is null) OR (:length is not null and D.length IN (:length)) \n"
-    		+ " AND (:color is null) OR (:color is not null and A.color IN (:color)) \n"
-    		+ " AND (:productId is null) OR (:productId is not null and A.id like %:productId%) \n"
-    		+ " LIMIT :limit OFFSET :offset",nativeQuery = true)
-    List<Object[]> getAllProduct(@Param("producttype") List<String> productType,@Param("length") List<String> length,@Param("color") List<String> color
-    		,@Param("productId") String productId,@Param("limit") Integer limit,@Param("offset") Integer offset);
+    		+ " AND COALESCE(:producttype,null) is null OR A.product_type IN (:producttype) \n"
+    		+ " AND COALESCE(:length,null) is null OR D.length IN (:length) \n"
+    		+ " AND COALESCE(:color,null) is null OR A.color IN (:color) \n"
+    		+ " AND COALESCE(:productId,null) is null OR A.id like %:productId% \n"
+    		+ " \n-- #pageable\n",
+    		countQuery = "SELECT COUNT(*) \n"
+    				+ " FROM (((product A JOIN producttype B ON A.product_type = B.id) \n"
+    			  	+ " JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id ) \n"
+    				+ " WHERE A.product_type = B.id AND A.color = C.id AND A.size = D.id \n"
+    	    		+ " AND COALESCE(:producttype,null) is null OR A.product_type IN (:producttype) \n"
+    	    		+ " AND COALESCE(:length,null) is null OR D.length IN (:length) \n"
+    	    		+ " AND COALESCE(:color,null) is null OR A.color IN (:color) \n"
+    	    		+ " AND COALESCE(:productId,null) is null OR A.id like %:productId% \n",
+    		nativeQuery = true)
+    Page<Object[]> getAllProduct(@Param("producttype") List<String> productType,@Param("length") List<String> length,@Param("color") List<String> color,@Param("productId") String productId, Pageable pageable);
 }
