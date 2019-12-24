@@ -69,8 +69,9 @@ public class ProductServiceImpl implements ProductService {
 			Integer pageSize, Integer currentpage, String productId,String sort) {
 		// TODO Auto-generated method stub
 		Pageable paging = null;
-		if(sort.equals("false")) paging = PageRequest.of(currentpage, pageSize,Sort.by("price").descending());
-		else paging = PageRequest.of(currentpage, pageSize,Sort.by("price").ascending());
+		if(sort.equals("ascend")) paging = PageRequest.of(currentpage, pageSize,Sort.by("price").ascending());
+		else if (sort.equals("descend")) paging = PageRequest.of(currentpage, pageSize,Sort.by("price").descending());
+		else paging = null;
 		if(productId.equals("")) productId = null;
 		if(productType.size() == 0) productType = null;
 		if(color.size() == 0) color = null;
@@ -79,5 +80,12 @@ public class ProductServiceImpl implements ProductService {
 		List<Object[]> product = dataProduct.getContent();
 		List<ProductDTO> listProduct = product.stream().map(pt -> new ProductDTO(pt)).collect(Collectors.toList());
 		return listProduct;
+	}
+	@Override
+	public ProductDTO getProductById(String idProduct) {
+		// TODO Auto-generated method stub
+		List<Object[]> data = productRepo.getProductById(idProduct);
+		List<ProductDTO> listProduct = data.stream().map(pt -> new ProductDTO(pt)).collect(Collectors.toList());
+		return listProduct.get(0);
 	}
 }

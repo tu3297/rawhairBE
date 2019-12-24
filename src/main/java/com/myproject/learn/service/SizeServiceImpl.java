@@ -40,6 +40,8 @@ public class SizeServiceImpl implements sizeService {
 	@Override
 	public SizeDTO addSize(SizeDTO size) {
 		// TODO Auto-generated method stub
+		String sizeFrontal = size.getSizeFrontal();
+		if(sizeFrontal.equals("pls enter data"));
 		sizeRepo.addSize(size.getLength(), size.getProductTypeId(), size.getSizeFrontal());
 		return size;
 	}

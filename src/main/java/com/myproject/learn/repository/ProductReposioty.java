@@ -49,4 +49,18 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
     	    		+ " AND COALESCE(:productId,null) is null OR A.id like %:productId% \n",
     		nativeQuery = true)
     Page<Object[]> getAllProduct(@Param("producttype") List<String> productType,@Param("length") List<String> length,@Param("color") List<String> color,@Param("productId") String productId, Pageable pageable);
+    
+   @Query(value = "SELECT A.id as ID \n" + 
+   		"    		,B.id as PRODUCTTYPEID \n" + 
+   		"    		,B.name as PRODUCTNAME \n" + 
+   		"    		,C.id as COLORID \n" + 
+   		"    		,C.name as COLORNAME \n" + 
+   		"    		,C.code as COLORCODE \n" + 
+   		"    		,D.length as LENGTH \n" + 
+   		"    		,D.size_frontals as FRONTAL \n" + 
+   		"    		,A.price as PRICE \n" + 
+   		"    		FROM (((product A JOIN producttype B ON A.product_type = B.id) \n" + 
+   		"    		JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id ) \n"
+   		+ "         WHERE A.id LIKE %:idProduct%",nativeQuery = true)
+   List<Object[]> getProductById(@Param("idProduct") String idProduct);
 }

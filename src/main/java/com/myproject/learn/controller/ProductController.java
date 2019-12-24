@@ -35,6 +35,12 @@ public class ProductController {
 	  response.put("Id", id);
 	  return new ResponseEntity(response, HttpStatus.OK);
   }
+  @GetMapping(value ="/getProductById")
+  ResponseEntity<?> getProductById (@RequestParam String idProduct){
+	  Map<String,String> response = new HashMap<>();
+	  ProductDTO product = productService.getProductById(idProduct);
+	  return new ResponseEntity(product, HttpStatus.OK);
+  }
   @PostMapping(value = "/saveProduct")
   ResponseEntity<?> saveProduct(@RequestBody String product) throws JsonParseException, JsonMappingException, IOException{
 	  ObjectMapper mapper = new ObjectMapper();

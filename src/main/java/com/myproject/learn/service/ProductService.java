@@ -9,4 +9,5 @@ public interface ProductService {
      String getNextId();
      ProductRC saveProduct(ProductRC product);
      List<ProductDTO> getAllProduct(List<String> productType,List<String> color,List<String> length,Integer pageSize,Integer currentPace,String productId,String sort);
+     ProductDTO getProductById(String idProduct);
 }
