@@ -21,18 +21,26 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ProductDTO;
 import com.myproject.learn.dto.ProductRC;
+import com.myproject.learn.dto.ProductypeData;
 import com.myproject.learn.service.ProductService;
+import com.myproject.learn.service.ProductTypeService;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
   @Autowired
   private ProductService productService;
-  @GetMapping(value ="/getNextId")
-  ResponseEntity<?> getNextId (){
-	  Map<String,String> response = new HashMap<>();
+  
+  @Autowired
+  private ProductTypeService ptService;
+  
+  @GetMapping(value ="/getData")
+  ResponseEntity<?> getData (){
+	  Map<String,Object> response = new HashMap<>();
 	  String id = productService.getNextId();
-	  response.put("Id", id);
+	  List<ProductypeData> ptData = ptService.getData();
+	  response.put("idProduct", id);
+	  response.put("productypeData",ptData);
 	  return new ResponseEntity(response, HttpStatus.OK);
   }
   @GetMapping(value ="/getProductById")

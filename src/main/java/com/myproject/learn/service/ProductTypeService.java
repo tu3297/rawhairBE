@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.myproject.learn.dto.ProductTypeColorDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
+import com.myproject.learn.dto.ProductypeData;
 
 public interface ProductTypeService {
       List<ProductTypeDTO> getListProductType();
@@ -14,4 +15,5 @@ public interface ProductTypeService {
       String updateProductTypeColor(String data);
       Integer checkExistProductTypeColor(Integer colorId,Integer ptId);
       ProductTypeDTO getProductTypeById(Integer productTypeId);
+      List<ProductypeData> getData();
 }

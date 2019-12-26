@@ -2,7 +2,9 @@ package com.myproject.learn.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -10,10 +12,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myproject.learn.dto.ColorDTO;
 import com.myproject.learn.dto.ProductTypeColorDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
+import com.myproject.learn.dto.ProductypeData;
+import com.myproject.learn.dto.SizeFrontalData;
+import com.myproject.learn.dto.SizeProductDTO;
 import com.myproject.learn.repository.ColorRepository;
 import com.myproject.learn.repository.ProductTypeRepository;
+import com.myproject.learn.repository.SizeRepository;
 
 @Service
 public class ProductTypeImpl implements ProductTypeService {
@@ -22,6 +29,9 @@ public class ProductTypeImpl implements ProductTypeService {
     
     @Autowired
     private ColorRepository colorRepo;
+    
+    @Autowired
+    private SizeRepository sizeRepo;
 	@Override
 	public List<ProductTypeDTO> getListProductType() {
 		// TODO Auto-generated method stub
@@ -99,5 +109,38 @@ public class ProductTypeImpl implements ProductTypeService {
 		List<ProductTypeDTO> listPT =  data.stream().map(pt -> new ProductTypeDTO(pt)).collect(Collectors.toList());
 		return listPT.get(0);
 	}
-
+	@Override
+	public List<ProductypeData> getData() {
+		// TODO Auto-generated method stub
+		List<ProductypeData> response = new ArrayList<>();
+		List<Object[]> ptData = productTypeRepo.getListProductType();
+		List<ProductTypeDTO> listProductType = new ArrayList<>();
+		listProductType = ptData.stream().map(pt -> new ProductTypeDTO(pt)).collect(Collectors.toList());
+		for(ProductTypeDTO producttype : listProductType) {
+			//set producttype
+		    ProductypeData temp = new ProductypeData();
+		    temp.setProductTypeName(producttype.getProductTypeName());
+		    temp.setProductTypeId(producttype.getProductTypeId());
+		    //get color of product type
+		    List<Object[]> colorData = colorRepo.getListColorOfProductType(Integer.parseInt(producttype.getProductTypeId()));
+		    List<ColorDTO> listColors = colorData.stream().map(pt -> new ColorDTO(pt)).collect(Collectors.toList());
+		    temp.setColors(listColors);
+		    //get size of product type
+		    List<SizeFrontalData> frontalClosure = new ArrayList<>();
+		    	List<String> regex = Arrays.asList("Closure","Frontal");
+				List<Object[]> sizeData = sizeRepo.getListSizeOfProductType(Integer.parseInt(temp.getProductTypeId()),regex);
+				List<SizeProductDTO> listSize = sizeData.stream().map(pt -> new SizeProductDTO(pt)).collect(Collectors.toList());
+				SizeFrontalData frontal = null;
+				for(SizeProductDTO data : listSize) {
+					frontal = new SizeFrontalData();
+					frontal.setSizeId(data.getId());
+					frontal.setSizeFrontal(data.getSizeFrontal());
+					frontal.setLength(data.getLength());
+					frontalClosure.add(frontal);
+				}
+				temp.setFrontalClosure(frontalClosure);
+				response.add(temp);
+		}
+		return response;
+	}
 }

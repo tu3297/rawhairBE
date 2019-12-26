@@ -50,9 +50,8 @@ public interface SizeRepository extends JpaRepository<Size, Long> {
     void deleteSize(@Param("listId") List<Integer> listId);
     
     @Query(value = "SELECT id as ID \n"
-    		+ " ,CASE WHEN ((SELECT B.name FROM producttype B WHERE B.id =:producttype) IN :regex) THEN null ELSE length END \n"
-    		+ " ,CASE WHEN ((SELECT A.name FROM producttype A WHERE A.id =:producttype) IN :regex) THEN size_frontals ELSE null END \n"
-    		+ " ,CASE WHEN ((SELECT C.name FROM producttype C WHERE C.id =:producttype) IN :regex) THEN '1' ELSE '0' END \n"
+    		+ " , length AS LENGTH \n"
+    		+ " , CASE WHEN ((SELECT A.name FROM producttype A WHERE A.id =:producttype) IN :regex) THEN size_frontals ELSE null END \n"
     		+ " FROM size \n"
     		+ " WHERE product_type =:producttype",nativeQuery = true)
     List<Object[]> getListSizeOfProductType(@Param("producttype") Integer producttype,@Param("regex") List<String> regex);
