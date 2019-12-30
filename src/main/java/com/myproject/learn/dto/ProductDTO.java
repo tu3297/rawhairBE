@@ -1,5 +1,9 @@
 package com.myproject.learn.dto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductDTO {
@@ -23,6 +27,13 @@ public class ProductDTO {
     private String colorCode;
     @JsonProperty("length")
     private String length;
+    private List<String> urlImage;
+	public List<String> getUrlImage() {
+		return urlImage;
+	}
+	public void setUrlImage(List<String> urlImage) {
+		this.urlImage = urlImage;
+	}
 	public String getIdProduct() {
 		return idProduct;
 	}
@@ -85,6 +96,7 @@ public class ProductDTO {
 	}
 	public ProductDTO(Object[] data) {
 		super();
+		this.urlImage = new ArrayList<>();
 		// TODO Auto-generated constructor stub
 		this.idProduct = data[0].toString();
 		this.idProductType = data[1].toString();
@@ -92,9 +104,11 @@ public class ProductDTO {
 		this.idColor = data[3].toString();
 		this.colorCode = data[4].toString();
 		this.colorName = data[5].toString();
-		this.length = data[6].toString();
-		this.sizeFrontal = data[7].toString();
-		this.price = data[8].toString();
+		this.idSize = data[6].toString();
+		this.length = data[7].toString();
+		this.sizeFrontal = data[8].toString();
+		this.price = data[9].toString();
+		if(data.length >= 11) this.urlImage.addAll(Arrays.asList(data[10].toString().split(",")));
 	}
 	
     

@@ -28,6 +28,7 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
     		+ " ,C.id as COLORID \n"
     		+ " ,C.name as COLORNAME \n"
     		+ " ,C.code as COLORCODE \n"
+    		+ " ,D.id as IDSIZE \n"
     		+ " ,D.length as LENGTH \n"
     		+ " ,D.size_frontals as FRONTAL \n"
     		+ " ,A.price as PRICE \n"
@@ -55,12 +56,14 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
    		"    		,B.name as PRODUCTNAME \n" + 
    		"    		,C.id as COLORID \n" + 
    		"    		,C.name as COLORNAME \n" + 
-   		"    		,C.code as COLORCODE \n" + 
+   		"    		,C.code as COLORCODE \n"+
+   		"           ,D.id as IDSIZE \n" + 
    		"    		,D.length as LENGTH \n" + 
    		"    		,D.size_frontals as FRONTAL \n" + 
-   		"    		,A.price as PRICE \n" + 
-   		"    		FROM (((product A JOIN producttype B ON A.product_type = B.id) \n" + 
-   		"    		JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id ) \n"
+   		"    		,A.price as PRICE \n "+ 
+   		"           ,GROUP_CONCAT(E.image_url SEPARATOR ',') AS IMAGE_URL \n" +
+   		"    		FROM ((((product A JOIN producttype B ON A.product_type = B.id) \n" + 
+   		"    		JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id ) JOIN image_detail E ON A.id = E.id_product) \n"
    		+ "         WHERE A.id LIKE %:idProduct%",nativeQuery = true)
    List<Object[]> getProductById(@Param("idProduct") String idProduct);
 }
