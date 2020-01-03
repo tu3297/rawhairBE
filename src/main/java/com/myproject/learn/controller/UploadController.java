@@ -23,25 +23,22 @@ import com.myproject.learn.service.UploadService;
 @CrossOrigin("*")
 @RequestMapping
 public class UploadController {
-	 private static String UPLOADED_FOLDER = "D://temp//";
+	 private static String UPLOADED_FOLDER = "D://learn//rawhairBE//src//main//resources//static//images";
 	 @Autowired
 	 private UploadService uploadService;
    @PostMapping(value ="/upload")
-   public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile uploadfile,@RequestParam("id") String idProduct) {
+   public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile uploadfile,@RequestParam("id") String idProduct) throws IOException {
 	   if (uploadfile.isEmpty()) {
            return new ResponseEntity("please select a file!", HttpStatus.OK);
        }
 	   if (uploadfile.isEmpty()) {
            return new ResponseEntity("please select a file!", HttpStatus.OK);
        }
-	   try {
-           saveUploadedFiles(Arrays.asList(uploadfile));
-           String path = uploadfile.getOriginalFilename();
-           uploadService.uploadImage(path, idProduct);
-       } catch (IOException e) {
-           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-       }
-	   return new ResponseEntity("Successfully uploaded - " +uploadfile.getOriginalFilename(), new HttpHeaders(), HttpStatus.OK);
+       saveUploadedFiles(Arrays.asList(uploadfile));
+       String name = uploadfile.getOriginalFilename();
+
+       uploadService.uploadImage(name, idProduct);
+	   return new ResponseEntity(name, new HttpHeaders(), HttpStatus.OK);
    }
    private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
        for (MultipartFile file : files) {

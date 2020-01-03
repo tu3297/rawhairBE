@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.myproject.learn.model.Role;
 import com.myproject.learn.model.RoleName;
@@ -26,6 +29,15 @@ public class MyProjectApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(MyProjectApplication.class, args);
 	}
+	  @Configuration
+	    public class WebConfig implements WebMvcConfigurer {      
+	        @Override
+	        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	            registry.addResourceHandler("/**")
+	            .addResourceLocations("classpath:/static/","classpath:/images/")
+	            .setCachePeriod(0);
+	        }
+	    }
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
