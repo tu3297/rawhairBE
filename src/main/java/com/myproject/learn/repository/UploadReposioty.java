@@ -10,8 +10,8 @@ import com.myproject.learn.model.ImageDetail;
 @Repository
 public interface UploadReposioty extends JpaRepository<ImageDetail, Long> {
 	@Modifying
-    @Query(value ="INSERT INTO image_detail(id_product,image_url) \n"
-    		+ " VALUES (:idProduct,:path) \n",nativeQuery = true)
-    void saveImage (@Param("path") String path,@Param("idProduct") String idProduct);
+    @Query(value ="INSERT INTO image_detail(id_product,image_url,ref_key) \n"
+    		+ " VALUES (:idProduct,:path,:refkey) \n",nativeQuery = true)
+    void saveImage (@Param("path") String path,@Param("idProduct") String idProduct,@Param("refkey") String refkey);
     
 }

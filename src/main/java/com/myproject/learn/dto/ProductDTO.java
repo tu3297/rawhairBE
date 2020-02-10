@@ -28,6 +28,7 @@ public class ProductDTO {
     @JsonProperty("length")
     private String length;
     private List<String> urlImage;
+    private List<String> ref_key;
 	public List<String> getUrlImage() {
 		return urlImage;
 	}
@@ -97,6 +98,7 @@ public class ProductDTO {
 	public ProductDTO(Object[] data) {
 		super();
 		this.urlImage = new ArrayList<>();
+		this.ref_key = new ArrayList<>();
 		// TODO Auto-generated constructor stub
 		this.idProduct = data[0].toString();
 		this.idProductType = data[1].toString();
@@ -109,6 +111,13 @@ public class ProductDTO {
 		this.sizeFrontal = data[8].toString();
 		this.price = data[9].toString();
 		if(data.length >= 11) this.urlImage.addAll(Arrays.asList(data[10].toString().split(",")));
+		if(data.length >= 12) this.ref_key.addAll(Arrays.asList(data[11].toString().split(",")));
+	}
+	public List<String> getRef_key() {
+		return ref_key;
+	}
+	public void setRef_key(List<String> ref_key) {
+		this.ref_key = ref_key;
 	}
 	
     

@@ -32,13 +32,16 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
     		+ " ,D.length as LENGTH \n"
     		+ " ,D.size_frontals as FRONTAL \n"
     		+ " ,A.price as PRICE \n"
-    		+ " FROM (((product A JOIN producttype B ON A.product_type = B.id) \n"
-    		+ "  JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id )\n"
+    		+"  ,GROUP_CONCAT(E.image_url SEPARATOR ',') AS IMAGE_URL \n"
+    	    + " ,GROUP_CONCAT(E.ref_key SEPARATOR ',') AS REF_KEY \n"
+    		+ " FROM ((((product A JOIN producttype B ON A.product_type = B.id) \n"
+    		+ "  JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id ) JOIN image_detail E ON A.id = E.id_product) \n"
     		+ " WHERE A.product_type = B.id AND A.color = C.id AND A.size = D.id \n"
     		+ " AND COALESCE(:producttype,null) is null OR A.product_type IN (:producttype) \n"
     		+ " AND COALESCE(:length,null) is null OR D.length IN (:length) \n"
     		+ " AND COALESCE(:color,null) is null OR A.color IN (:color) \n"
     		+ " AND COALESCE(:productId,null) is null OR A.id like %:productId% \n"
+    		+ " GROUP BY A.id "
     		+ " \n-- #pageable\n",
     		countQuery = "SELECT COUNT(*) \n"
     				+ " FROM (((product A JOIN producttype B ON A.product_type = B.id) \n"
@@ -61,7 +64,8 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
    		"    		,D.length as LENGTH \n" + 
    		"    		,D.size_frontals as FRONTAL \n" + 
    		"    		,A.price as PRICE \n "+ 
-   		"           ,GROUP_CONCAT(E.image_url SEPARATOR ',') AS IMAGE_URL \n" +
+   		"           ,GROUP_CONCAT(E.image_url SEPARATOR ',') AS IMAGE_URL \n"
+   		+ "         ,GROUP_CONCAT(E.ref_key SEPARATOR ',') AS REF_KEY \n" +
    		"    		FROM ((((product A JOIN producttype B ON A.product_type = B.id) \n" + 
    		"    		JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id ) JOIN image_detail E ON A.id = E.id_product) \n"
    		+ "         WHERE A.id LIKE %:idProduct%",nativeQuery = true)

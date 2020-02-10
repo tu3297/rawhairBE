@@ -14,10 +14,10 @@ public class UploadServiceImpld implements UploadService {
 
 @Transactional
 @Override
-public String uploadImage(String path, String idProduct) {
+public String uploadImage(String path, String idProduct,String refkey) {
 	// TODO Auto-generated method stub
 	try {
-		uploadRepo.saveImage(path, idProduct);
+		uploadRepo.saveImage(path, idProduct,refkey);
 		return "Success";
 	} catch (Exception e) {
 		// TODO: handle exception

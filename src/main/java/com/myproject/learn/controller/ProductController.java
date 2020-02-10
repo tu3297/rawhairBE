@@ -63,4 +63,8 @@ public class ProductController {
 	List<ProductDTO> response =  productService.getAllProduct(productType, color, length, Integer.parseInt(pageSize), Integer.parseInt(curentPage), id , sort);
 	return new ResponseEntity(response, new HttpHeaders(), HttpStatus.OK);
   }
+  @GetMapping(value ="/getProductSizeType")
+  ResponseEntity<?> getProductSizeType(@RequestParam String idProductType){
+	  return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
+  }
 }

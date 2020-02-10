@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.myproject.learn.dto.ColorDTO;
 import com.myproject.learn.dto.ProductTypeColorDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
+import com.myproject.learn.dto.ProductTypeHome;
 import com.myproject.learn.dto.ProductypeData;
 import com.myproject.learn.dto.SizeFrontalData;
 import com.myproject.learn.dto.SizeProductDTO;
@@ -46,15 +47,17 @@ public class ProductTypeImpl implements ProductTypeService {
 	@Transactional
 	@Override
 	public ProductTypeDTO addProductType(ProductTypeDTO pt) {
+		if(pt.getParent() == null) pt.setParent("0");
 		// TODO Auto-generated method stub
-		productTypeRepo.addProductType(pt.getProductTypeName(),pt.getProductTypeDes());
+		productTypeRepo.addProductType(pt.getProductTypeName(),pt.getProductTypeDes(),pt.getParent());
 		return pt;
 	}
 	@Transactional
 	@Override
 	public ProductTypeDTO updateProductType(ProductTypeDTO pt) {
 		// TODO Auto-generated method stub
-		productTypeRepo.updateProductType(pt.getProductTypeName(), pt.getProductTypeDes(), Integer.parseInt(pt.getProductTypeId()));
+		if(pt.getParent() == null) pt.setParent("0");
+		productTypeRepo.updateProductType(pt.getProductTypeName(), pt.getProductTypeDes(), Integer.parseInt(pt.getProductTypeId()),pt.getParent());
 		return pt;
 	}
 	@Transactional
@@ -142,5 +145,11 @@ public class ProductTypeImpl implements ProductTypeService {
 				response.add(temp);
 		}
 		return response;
+	}
+	@Override
+	public List<ProductTypeHome> getProductTypeHome() {
+		// TODO Auto-generated method stub
+		List<Object[]> test = productTypeRepo.getListProductTypeHome("2");
+		return null;
 	}
 }

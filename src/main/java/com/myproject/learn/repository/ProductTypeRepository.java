@@ -15,21 +15,23 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     @Query(value = " SELECT id AS ID \n"
     		          + " ,name AS PTNAME \n"
     		          + " ,description AS PTDESCRIPTION \n"
+    		          + " ,parent AS PARENT"
     		          + " FROM producttype", nativeQuery = true)
     List<Object[]> getListProductType();
     
     @Modifying
 	@Query(value = "INSERT INTO producttype( \n"
 			+ " name \n"
-			+ " ,description)"
-			+ " VALUES (:name,:description) \n",nativeQuery=true)
-	void addProductType(@Param("name") String name,@Param("description") String description);
+			+ " ,description"
+			+ " ,parent)"
+			+ " VALUES (:name,:description,:parent) \n",nativeQuery=true)
+	void addProductType(@Param("name") String name,@Param("description") String description ,@Param("parent") String parent);
     
     @Modifying
 	@Query(value = "UPDATE producttype \n"
-			+ " SET name =:name , description =:description \n"
+			+ " SET name =:name , description =:description ,parent =:parent \n"
 			+ " WHERE id =:id",nativeQuery = true)
-	void updateProductType(@Param("name") String name,@Param("description") String description ,@Param("id") int id);
+	void updateProductType(@Param("name") String name,@Param("description") String description ,@Param("id") int id,@Param("parent") String parent);
     
     @Modifying
 	@Query(value = "DELETE \n"
@@ -67,4 +69,14 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     		+ " WHERE id =:idProductType",nativeQuery = true)
     List<Object[]> getProductTypeById (@Param("idProductType") Integer idProductType);
     
+    
+    @Query(value="SELECT  id,\n" + 
+    		"        name, \n" + 
+    		"        parent\n" + 
+    		" FROM    (select * from producttype\n" + 
+    		"         order by parent, id) as a ,\n" + 
+    		"        (select @pv =:parent) as b \n" + 
+    		" WHERE   find_in_set(parent, @pv) \n" + 
+    		" AND     length(@pv = concat(@pv, ',', id))",nativeQuery = true)
+    List<Object[]> getListProductTypeHome(@Param("parent") String parent);
 }

@@ -13,6 +13,14 @@ public class ProductTypeDTO {
 	private String key;
 	@JsonProperty("editing")
 	private String editing;
+	@JsonProperty
+	private String parent;
+	public String getParent() {
+		return parent;
+	}
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
 	public String getKey() {
 		return key;
 	}
@@ -52,6 +60,7 @@ public class ProductTypeDTO {
 	    this.productTypeName = pt[1].toString();
 	    this.productTypeDes = pt[2].toString();
 	    this.productTypeId = pt[0].toString();
+	    this.parent = pt[3].toString();
 	    
 	}
 	

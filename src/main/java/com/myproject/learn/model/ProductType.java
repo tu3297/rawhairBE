@@ -17,6 +17,14 @@ public class ProductType {
 	    private String name;
 	    @Column
 	    private String description;
+	    @Column
+	    private String parent;
+		public String getParent() {
+			return parent;
+		}
+		public void setParent(String parent) {
+			this.parent = parent;
+		}
 		public String getDescription() {
 			return description;
 		}

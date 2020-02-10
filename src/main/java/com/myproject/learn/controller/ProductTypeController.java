@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.learn.dto.ListProductTypeRC;
 import com.myproject.learn.dto.ProductTypeColorDTO;
 import com.myproject.learn.dto.ProductTypeDTO;
+import com.myproject.learn.dto.ProductTypeHome;
 import com.myproject.learn.service.ProductTypeService;
 
 @RestController
@@ -74,5 +75,10 @@ public class ProductTypeController {
 	public ResponseEntity<List<ProductTypeColorDTO>> getAllProductTypeColor(){
 		List<ProductTypeColorDTO> listProductTypeColor = productTypeService.getListProductTypeColor();
 		return new ResponseEntity<>(listProductTypeColor,HttpStatus.OK);
+	}
+	@GetMapping(value ="/getProductTypeHome")
+	public ResponseEntity<?> getProductTypeHome(){
+		List<ProductTypeHome> listProductTypeHome = new ArrayList<>();
+		return new ResponseEntity(null  , HttpStatus.OK);
 	}
 }
