@@ -70,4 +70,18 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
    		"    		JOIN color C ON A.color = C.id ) JOIN size D ON A.size = D.id ) JOIN image_detail E ON A.id = E.id_product) \n"
    		+ "         WHERE A.id LIKE %:idProduct%",nativeQuery = true)
    List<Object[]> getProductById(@Param("idProduct") String idProduct);
+   
+   @Query(value ="SELECT A.id as ID \n"
+   		+ "       	,A.name as NAME \n"
+   		+ "			,A.code as CODE \n"
+   		+ "			,B.id as PRODUCT_ID \n"
+   		+ "			,B.price as PRICE \n"
+   		+ "			,C.length as LENGTH \n"
+   		+ "			,GROUP_CONCAT(E.image_url SEPARATOR ',') as IMAGE \n"
+   		+ "		FROM ((color A inner join product B on A.id = B.color) inner join size C on B.size = C.id) left join image_detail E ON B.id = E.id_product \n"
+   		+ "     WHERE B.product_type =:productType \n"
+   		+ "		GROUP BY B.id \n"
+   		+ "		ORDER BY A.id,A.name,A.code",
+   		nativeQuery = true)
+   List<Object[]> getInfoProduct(@Param("productType") String productTypr);
 }

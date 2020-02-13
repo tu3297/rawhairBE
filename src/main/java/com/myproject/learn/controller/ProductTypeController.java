@@ -79,6 +79,7 @@ public class ProductTypeController {
 	@GetMapping(value ="/getProductTypeHome")
 	public ResponseEntity<?> getProductTypeHome(){
 		List<ProductTypeHome> listProductTypeHome = new ArrayList<>();
-		return new ResponseEntity(null  , HttpStatus.OK);
+		listProductTypeHome = productTypeService.getProductTypeHome();
+		return new ResponseEntity(listProductTypeHome , HttpStatus.OK);
 	}
 }

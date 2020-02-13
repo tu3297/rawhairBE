@@ -75,8 +75,8 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
     		"        parent\n" + 
     		" FROM    (select * from producttype\n" + 
     		"         order by parent, id) as a ,\n" + 
-    		"        (select @pv =:parent) as b \n" + 
+    		"        (select @pv\\:=:parent) as b \n" + 
     		" WHERE   find_in_set(parent, @pv) \n" + 
-    		" AND     length(@pv = concat(@pv, ',', id))",nativeQuery = true)
+    		" AND     length(@pv\\:= concat(@pv, ',', id))",nativeQuery = true)
     List<Object[]> getListProductTypeHome(@Param("parent") String parent);
 }

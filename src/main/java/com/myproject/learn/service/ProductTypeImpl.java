@@ -149,7 +149,37 @@ public class ProductTypeImpl implements ProductTypeService {
 	@Override
 	public List<ProductTypeHome> getProductTypeHome() {
 		// TODO Auto-generated method stub
-		List<Object[]> test = productTypeRepo.getListProductTypeHome("2");
-		return null;
+		List<ProductTypeHome> response = new ArrayList<>();
+		List<Object[]> data = productTypeRepo.getListProductTypeHome("0");
+		for(int i = 0 ; i < data.size() ; i++) {
+			if(data.get(i)[2].equals("0")) {
+				ProductTypeHome elem = new ProductTypeHome();
+				elem.setKey(data.get(i)[0].toString());
+				elem.setTitle(data.get(i)[1].toString());
+				elem.setChildren(new ArrayList<>());
+				response.add(elem);
+				data.remove(i);
+				i = i - 1;
+			}
+		}
+		for(int i = 0 ; i < data.size() ; i++) {
+			String parent = data.get(i)[2].toString();
+			String idProductType = data.get(i)[0].toString();
+			String productTypeName = data.get(i)[1].toString();
+			findNode(response, parent, idProductType, productTypeName);
+		}
+		return response;
+	}
+	public static void findNode(List<ProductTypeHome> node , String parent , String idProductType , String productTypeName) {
+		if(node == null || node.size() == 0 ) return;
+		for(int i = 0 ; i < node.size() ; i++) {
+		   if(node.get(i).getKey().equals(parent)) {
+			   if(node.get(i).getChildren() == null) node.get(i).setChildren(new ArrayList<>());
+			   node.get(i).getChildren().add(new ProductTypeHome(idProductType,productTypeName));
+			  return;
+		   } else {
+			   findNode(node.get(i).getChildren(), parent, idProductType, productTypeName);
+		   }
+	   }
 	}
 }

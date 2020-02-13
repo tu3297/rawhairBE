@@ -3,30 +3,36 @@ package com.myproject.learn.dto;
 import java.util.List;
 
 public class ProductTypeHome {
-      private String productTypeId;
-      private String productTypeName;
-      private List<ProductTypeHome> child;
-	public String getProductTypeId() {
-		return productTypeId;
+      private String key;
+      private String title;
+      private List<ProductTypeHome> children;
+
+	public String getKey() {
+		return key;
 	}
-	public void setProductTypeId(String productTypeId) {
-		this.productTypeId = productTypeId;
+	public void setKey(String key) {
+		this.key = key;
 	}
-	public String getProductTypeName() {
-		return productTypeName;
+	public String getTitle() {
+		return title;
 	}
-	public void setProductTypeName(String productTypeName) {
-		this.productTypeName = productTypeName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public List<ProductTypeHome> getChild() {
-		return child;
+	public List<ProductTypeHome> getChildren() {
+		return children;
 	}
-	public void setChild(List<ProductTypeHome> child) {
-		this.child = child;
+	public void setChildren(List<ProductTypeHome> children) {
+		this.children = children;
 	}
 	public ProductTypeHome() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public ProductTypeHome(String productTypeId, String productTypeName) {
+		super();
+		this.key = productTypeId;
+		this.title = productTypeName;
 	}
       
 }

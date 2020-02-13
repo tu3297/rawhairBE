@@ -2,6 +2,9 @@ package com.myproject.learn.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.myproject.learn.dto.ImagePriceProduct;
 import com.myproject.learn.dto.ProductDTO;
+import com.myproject.learn.dto.ProductInfo;
 import com.myproject.learn.dto.ProductRC;
 import com.myproject.learn.dto.SizeDTO;
 import com.myproject.learn.repository.ProductReposioty;
@@ -87,5 +92,44 @@ public class ProductServiceImpl implements ProductService {
 		List<Object[]> data = productRepo.getProductById(idProduct);
 		List<ProductDTO> listProduct = data.stream().map(pt -> new ProductDTO(pt)).collect(Collectors.toList());
 		return listProduct.get(0);
+	}
+	@Override
+	public List<ProductInfo> getInfoProduct(String idProductype) {
+		// TODO get color
+		// TODO get list id by color and producttypeid
+		// TODO get list size,price by producttypeid color id -> map
+		// TODO description
+		List<ProductInfo> response = new ArrayList<>();
+		List<Object[]> data = productRepo.getInfoProduct(idProductype);
+		for(int j = 0 ; j < data.size() ; j++) {
+			int k = getIndex(data, data.get(j)[1].toString(),j);
+			HashMap<String, ImagePriceProduct> map = new HashMap<>();
+			ProductInfo elem = new ProductInfo();
+			for(int i = j; i < k; i++) {
+				String color = data.get(i)[1].toString();
+				String colorCode = data.get(i)[2].toString();
+				ImagePriceProduct item = new ImagePriceProduct();
+				String length = data.get(i)[5].toString();
+				String urlImage = data.get(i)[6].toString();
+				String price = data.get(i)[4].toString();
+				item.setPrice(price);
+				item.setUrlImage(Arrays.asList(urlImage.split(",")));
+				elem.setColor(color);
+				elem.setColorCode(colorCode);
+				map.put(length, item);
+				elem.setSizePrice(map);
+			  }
+			response.add(elem);
+			j = k - 1;
+		}
+		return response;
+	}
+	public static int getIndex(List<Object[]> data,String key,int index) {
+		for(int i = index ;i < data.size() ; i++) {
+			if(!data.get(i)[1].toString().equals(key)) {
+				return i;
+			}
+		}
+		return data.size();
 	}
 }
