@@ -1,5 +1,12 @@
 package com.myproject.learn.controller;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,6 +17,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -74,10 +84,26 @@ public class UploadController {
 	    	File file = fileResource.getFile();
 	        Path path = Paths.get(file.getAbsolutePath());
 	        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+//	        BufferedImage temp = ImageIO.read(new ByteArrayInputStream(resource.getByteArray()));
+//	        temp = resizeImage(temp, 100, 100);
+//	        ByteArrayOutputStream newFileJPG = new ByteArrayOutputStream();
+//	        ImageIO.write(temp, "jpg", newFileJPG);
 	        return ResponseEntity.ok().contentLength(file.length()).contentType(MediaType.IMAGE_JPEG).body(resource);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return null;
 	    }
-	} 
+	}
+//   public static BufferedImage resizeImage(final Image image, int width, int height) {
+//       final BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//       final Graphics2D graphics2D = bufferedImage.createGraphics();
+//       graphics2D.setComposite(AlphaComposite.Src);
+//       //below three lines are for RenderingHints for better image quality at cost of higher processing time
+//       graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+//       graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+//       graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+//       graphics2D.drawImage(image, 0, 0, width, height, null);
+//       graphics2D.dispose();
+//       return bufferedImage;
+//}
 }
