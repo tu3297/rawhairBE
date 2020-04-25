@@ -110,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
 				String colorCode = data.get(i)[2].toString();
 				ImagePriceProduct item = new ImagePriceProduct();
 				String length = data.get(i)[5].toString();
-				String urlImage = data.get(i)[6].toString();
+				String urlImage = (data.get(i)[6] != null ? data.get(i)[6] : ",").toString();
 				String price = data.get(i)[4].toString();
 				item.setPrice(price);
 				item.setUrlImage(Arrays.asList(urlImage.split(",")));

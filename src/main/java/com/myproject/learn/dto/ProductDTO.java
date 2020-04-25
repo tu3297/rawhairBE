@@ -110,8 +110,8 @@ public class ProductDTO {
 		this.length = data[7].toString();
 		this.sizeFrontal = data[8].toString();
 		this.price = data[9].toString();
-		if(data.length >= 11) this.urlImage.addAll(Arrays.asList(data[10].toString().split(",")));
-		if(data.length >= 12) this.ref_key.addAll(Arrays.asList(data[11].toString().split(",")));
+		if(data.length >= 11 && data[10] != null) this.urlImage.addAll(Arrays.asList(data[10].toString().split(",")));
+		if(data.length >= 12 && data[11] != null) this.ref_key.addAll(Arrays.asList(data[11].toString().split(",")));
 	}
 	public List<String> getRef_key() {
 		return ref_key;

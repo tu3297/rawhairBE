@@ -22,11 +22,6 @@ public class Invoice extends DateAudit {
 	    private Long id;
 	    @Column
 	    private String code;
-	    @ManyToMany(fetch = FetchType.LAZY)
-	    @JoinTable(name = "invoice_product",
-	            joinColumns = @JoinColumn(name = "invoice_id"),
-	            inverseJoinColumns = @JoinColumn(name = "product_id"))
-	    private Set<Product> products = new HashSet<>();
 		public Long getId() {
 			return id;
 		}
@@ -38,12 +33,6 @@ public class Invoice extends DateAudit {
 		}
 		public void setCode(String code) {
 			this.code = code;
-		}
-		public Set<Product> getProduct() {
-			return products;
-		}
-		public void setProduct(Set<Product> product) {
-			this.products = product;
 		}
 		public Invoice() {
 			super();
