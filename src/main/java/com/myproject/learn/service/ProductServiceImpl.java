@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	@SuppressWarnings("unused")
 	@Override
-	public List<ProductDTO> getAllProduct(List<String> productType, List<String> color, List<String> length,
+	public List<ProductDTO> getAllProduct(String productTypeName,List<String> productType, List<String> color, List<String> length,
 			Integer pageSize, Integer currentpage, String productId,String sort) {
 		// TODO Auto-generated method stub
 		Pageable paging = null;
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
 		if(productType.size() == 0) productType = null;
 		if(color.size() == 0) color = null;
 		if(length.size() == 0 ) length = null;
-		Page<Object[]> dataProduct = productRepo.getAllProduct(productType, length, color, productId,paging);
+		Page<Object[]> dataProduct = productRepo.getAllProduct(productTypeName,productType, length, color, productId,paging);
 		List<Object[]> product = dataProduct.getContent();
 		List<ProductDTO> listProduct = product.stream().map(pt -> new ProductDTO(pt)).collect(Collectors.toList());
 		return listProduct;

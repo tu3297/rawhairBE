@@ -41,6 +41,7 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
     		+ " AND (COALESCE(:producttype,null) is null OR A.product_type IN (:producttype)) \n"
     		+ " AND (COALESCE(:color,null) is null OR A.color IN (:color)) \n"
     		+ " AND (COALESCE(:productId,null) is null OR A.id like %:productId%) \n"
+    		+ " AND (COALESCE(:productTypeName,null) is null OR B.name like %:productTypeName%) \n"
     		+ " GROUP BY A.id "
     		+ " \n-- #pageable\n",
     		countQuery = "SELECT COUNT(*) \n"
@@ -50,9 +51,10 @@ public interface ProductReposioty extends JpaRepository<Product, Long> {
     	    		+ " AND (COALESCE(:producttype,null) is null OR A.product_type IN (:producttype)) \n"
     	    		+ " AND (COALESCE(:length,null) is null OR D.length IN (:length)) \n"
     	    		+ " AND (COALESCE(:color,null) is null OR A.color IN (:color)) \n"
-    	    		+ " AND (COALESCE(:productId,null) is null OR A.id like %:productId%) \n",
+    	    		+ " AND (COALESCE(:productId,null) is null OR A.id like %:productId%) \n"
+    	    		+ " AND (COALESCE(:productTypeName,null) is null OR B.name like %:productTypeName%) ",
     		nativeQuery = true)
-    Page<Object[]> getAllProduct(@Param("producttype") List<String> productType,@Param("length") List<String> length,@Param("color") List<String> color,@Param("productId") String productId, Pageable pageable);
+    Page<Object[]> getAllProduct(@Param("productTypeName") String productTypeName,@Param("producttype") List<String> productType,@Param("length") List<String> length,@Param("color") List<String> color,@Param("productId") String productId, Pageable pageable);
     
    @Query(value = "SELECT A.id as ID \n" + 
    		"    		,B.id as PRODUCTTYPEID \n" + 

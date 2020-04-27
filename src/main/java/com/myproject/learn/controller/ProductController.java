@@ -58,9 +58,9 @@ public class ProductController {
 	  else return new ResponseEntity(productData, new HttpHeaders(), HttpStatus.OK);
   }
   @GetMapping(value = "/getAll")
-  ResponseEntity<?> getAll(@RequestParam String pageSize , @RequestParam String curentPage , @RequestParam String id , @RequestParam List<String> productType,@RequestParam List<String> length,@RequestParam List<String> color,
+  ResponseEntity<?> getAll(@RequestParam String productTypeName,@RequestParam String pageSize , @RequestParam String curentPage , @RequestParam String id , @RequestParam List<String> productType,@RequestParam List<String> length,@RequestParam List<String> color,
 		  @RequestParam String sort){
-	List<ProductDTO> response =  productService.getAllProduct(productType, color, length, Integer.parseInt(pageSize), Integer.parseInt(curentPage), id , sort);
+	List<ProductDTO> response =  productService.getAllProduct(productTypeName,productType, color, length, Integer.parseInt(pageSize), Integer.parseInt(curentPage), id , sort);
 	return new ResponseEntity(response, new HttpHeaders(), HttpStatus.OK);
   }
   @GetMapping(value ="/getInfoProduct")
